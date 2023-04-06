@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +7,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  searchForm!: FormGroup
 
-  links = [
-    { title: 'Main', fragment: '/' },
-    { title: 'Page1', fragment: '/page1' },
-    { title: 'Login', fragment: '/login' }
-  ];
+  constructor(private fb: FormBuilder) { }
 
-  constructor(public route: ActivatedRoute) { }
+  ngOnInit(): void {
+    this.searchForm = this.fb.group({
+      search: this.fb.control<string>('', [Validators.required]),
+    })
+  }
+
+  search() { }
 }
