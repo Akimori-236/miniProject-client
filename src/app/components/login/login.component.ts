@@ -24,9 +24,8 @@ export class LoginComponent {
   login() {
     const email = this.loginForm.value['email']
     const password = this.loginForm.value['password']
-    // should encrypt before sending
-    // this.
+    this.springboot.login(email, password)
+      .then(response => console.log(response))
+      .catch(err => console.error(err))
   }
-
-  encrypt() { }
 }

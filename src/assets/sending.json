@@ -1,0 +1,16 @@
+{
+  "params": {
+    "updates": [
+      { "param": "email", "value": "asdfasd", "op": "s" },
+      { "param": "password", "value": "asdfa", "op": "s" }
+    ],
+    "cloneFrom": {
+      "updates": null,
+      "cloneFrom": null,
+      "encoder": {},
+      "map": null
+    },
+    "encoder": {},
+    "map": null
+  }
+}
