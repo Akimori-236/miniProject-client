@@ -12,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes, { useHash: true })], // localhost:4200/#/login
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

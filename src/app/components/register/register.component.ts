@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SpringbootApiService } from 'src/app/services/springboot-api.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private springboot: SpringbootApiService) { }
+    private springboot: SpringbootApiService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -21,6 +23,9 @@ export class RegisterComponent {
       email: this.fb.control<string>('', [Validators.required]),
       password: this.fb.control<string>('', [Validators.required, Validators.minLength(8)]),
     })
+    if (localStorage.getItem("jwt") != null) {
+      this.router.navigate(['/'])
+    }
   }
 
   register() {
@@ -29,7 +34,11 @@ export class RegisterComponent {
     const email = this.registerForm.value['email']
     const password = this.registerForm.value['password']
     this.springboot.register(firstname, lastname, email, password)
-      .then(response => console.log(response))
+      .then(response => {
+        console.log(response)
+        localStorage.setItem("jwt", response['jwt'])
+        this.router.navigate(['/'])
+      })
       .catch(err => console.error(err))
   }
 }
