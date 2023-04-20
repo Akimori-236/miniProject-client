@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  isCollapsed = true
   searchForm!: FormGroup
 
   constructor(private fb: FormBuilder) { }
