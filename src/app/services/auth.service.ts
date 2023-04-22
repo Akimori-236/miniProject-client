@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User } from '../models/user';
 import { HttpClient } from '@angular/common/http';
+import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 
 const authURL = "/api/auth"
 
@@ -13,7 +14,8 @@ export class AuthService {
   private currentUserSubj!: BehaviorSubject<User>
   public currentUserObs!: Observable<User>
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private socialAuthSvc: SocialAuthService) {
     let localUser: string | null = localStorage.getItem('currentUser')
     if (localUser == null) {
       localUser = "{}"
@@ -50,4 +52,14 @@ export class AuthService {
     // check if there's a current user with a token
     return (this.currentUserValue != undefined) && (this.currentUserValue.token != undefined)
   }
+
+  // async googleSignIn() {
+  //   try {
+  //     const googleProvider = new GoogleLoginProvider('869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com');
+  //     const user = await this.socialAuthSvc.signIn(googleProvider);
+  //     return user;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 }
