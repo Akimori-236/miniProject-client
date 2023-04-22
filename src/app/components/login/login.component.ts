@@ -2,8 +2,9 @@ import { GoogleLoginProvider, SocialAuthService, SocialUser, GoogleSigninButtonD
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subscription } from 'rxjs';
-import { SpringbootApiService } from 'src/app/services/springboot-api.service';
+import { JwtApiService } from 'src/app/services/jwt-api.service';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +13,19 @@ import { SpringbootApiService } from 'src/app/services/springboot-api.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup
-  socialSub$!: Subscription
+  loginSub$!: Subscription
   socialUser!: SocialUser
   isLoggedIn!: boolean
 
   constructor(
     private fb: FormBuilder,
-    private springboot: SpringbootApiService,
+    private jwtSvc: JwtApiService,
     private router: Router,
-    private socialAuthSvc: SocialAuthService) { }
+    private socialAuthSvc: SocialAuthService,
+    private jwtHelper: JwtHelperService,) { }
 
   ngOnDestroy(): void {
-    this.socialSub$.unsubscribe()
+    this.loginSub$.unsubscribe()
   }
 
   ngOnInit(): void {
@@ -31,20 +33,17 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: this.fb.control<string>('', [Validators.required]),
       password: this.fb.control<string>('', [Validators.required]),
     })
-    this.socialSub$ = this.socialAuthSvc.authState.subscribe(
-      (user) => {
-        this.socialUser = user
-        this.isLoggedIn = user != null
-        console.log(this.socialUser)
-      }
-    )
-    // show "already logged in", timeout and then redirect
+    // observe the login state
+    this.loginSub$ = this.jwtSvc.LoginObs().subscribe(() => {
+      const token = localStorage.getItem('jwt');
+      this.isLoggedIn = !!token && !this.jwtHelper.isTokenExpired(token);
+    })
   }
 
   login() {
     const email = this.loginForm.value['email']
     const password = this.loginForm.value['password']
-    this.springboot.login(email, password)
+    this.jwtSvc.login(email, password)
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])

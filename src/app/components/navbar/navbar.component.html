@@ -34,16 +34,13 @@
     >
       <input class="form-control me-2" type="search" placeholder="Search" />
       <button class="btn btn-outline-primary me-2" type="submit">Search</button>
-      <ng-template #Logout>
-        <button
-          class="btn btn-outline-danger"
-          type="button"
-          (click)="logout()"
-        >
+
+      <div *ngIf="isLoggedIn; else Login">
+        <button class="btn btn-outline-danger" type="button" (click)="logout()">
           Logout
         </button>
-      </ng-template>
-      <div *ngIf="!isLoggedIn; else Logout">
+      </div>
+      <ng-template #Login>
         <button
           class="btn btn-outline-danger"
           type="button"
@@ -51,7 +48,8 @@
         >
           Login
         </button>
-      </div>
+      </ng-template>
+
     </form>
   </div>
 </nav>

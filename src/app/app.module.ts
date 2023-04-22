@@ -39,9 +39,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
       config: {
         tokenGetter: () => {
           return localStorage.getItem('jwt');
-        },
-        allowedDomains: ['example.com'],
-        disallowedRoutes: ['example.com/login']
+        }
       }
     })
   ],

@@ -2,7 +2,7 @@ import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-socia
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SpringbootApiService } from 'src/app/services/springboot-api.service';
+import { JwtApiService } from 'src/app/services/jwt-api.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,7 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private springboot: SpringbootApiService,
+    private jwtSvc: JwtApiService,
     private router: Router,
     private authService: SocialAuthService) { }
 
@@ -38,7 +38,7 @@ export class RegisterComponent {
     const lastname = this.registerForm.value['lastname']
     const email = this.registerForm.value['email']
     const password = this.registerForm.value['password']
-    this.springboot.register(firstname, lastname, email, password)
+    this.jwtSvc.register(firstname, lastname, email, password)
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
