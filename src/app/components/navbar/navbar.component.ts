@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Subscription, filter } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { JwtApiService } from 'src/app/services/jwt-api.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.loginSub$ = this.jwtSvc.LoginObs().subscribe(() => {
       const token = localStorage.getItem('jwt');
       this.isLoggedIn = !!token && !this.jwtHelper.isTokenExpired(token);
-      if (this.jwtHelper.isTokenExpired(token)){
+      if (this.jwtHelper.isTokenExpired(token)) {
         localStorage.removeItem('jwt')
       }
     })
