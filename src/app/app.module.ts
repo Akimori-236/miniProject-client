@@ -50,12 +50,12 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
       useValue: {
         autoLogin: false,
         providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com'
-            ),
-          },
+          // {
+          //   id: GoogleLoginProvider.PROVIDER_ID,
+          //   provider: new GoogleLoginProvider(
+          //     '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com'
+          //   ),
+          // },
         ],
       } as SocialAuthServiceConfig,
     },
