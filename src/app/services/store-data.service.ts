@@ -1,25 +1,23 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, filter, firstValueFrom } from 'rxjs';
+import { Instrument } from '../models/instrument';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JwtApiService {
+export class StoreDataService {
 
-  constructor(
-    private http: HttpClient,
-    private router: Router) { }
+  constructor(private http: HttpClient) { }
 
-  getBorrowed(email: string): Promise<any> {
-    const params = new HttpParams()
-      .set("email", email)
-    // how to add jwt
+  getBorrowed(email: string): Promise<Instrument[]> {
+    const token = localStorage.getItem("jwt")
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+    // const params = new HttpParams().set("email", email)
     return firstValueFrom(
-      this.http.post<any>("/api/data/borrowed", params)
-    )
+      this.http.get<Instrument[]>("/api/data/borrowed", { headers })
+    );
   }
-
 
 }
