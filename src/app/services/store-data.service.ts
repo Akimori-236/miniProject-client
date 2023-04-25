@@ -11,7 +11,7 @@ export class StoreDataService {
 
   constructor(private http: HttpClient) { }
 
-  getBorrowed(email: string): Promise<Instrument[]> {
+  getBorrowed(): Promise<Instrument[]> {
     const token = localStorage.getItem("jwt")
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
     // const params = new HttpParams().set("email", email)
