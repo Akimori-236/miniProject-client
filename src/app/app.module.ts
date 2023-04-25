@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { BorrowedComponent } from './components/borrowed/borrowed.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     MainComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    BorrowedComponent
   ],
   imports: [
     BrowserModule,

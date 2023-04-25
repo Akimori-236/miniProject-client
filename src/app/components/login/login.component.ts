@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
-        this.router.navigate(['/'])
+        this.router.navigate(['/borrowed'])
       })
       .catch(err => console.error(err))
   }

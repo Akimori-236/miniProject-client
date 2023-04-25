@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="text-light text-center">Your Instruments</h1>
+
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Model</th>
+        <th scope="col">Serial No.</th>
+        <th scope="col">Loaned From</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let instr of instrumentList; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ instr.brand }}</td>
+        <td>{{ instr.model }}</td>
+        <td>{{ instr.serial_number }}</td>
+        <td>{{ instr.store_name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
