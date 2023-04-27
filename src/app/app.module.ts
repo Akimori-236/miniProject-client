@@ -11,7 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './components/register/register.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { BorrowedComponent } from './components/borrowed/borrowed.component';
 
@@ -52,15 +52,18 @@ import { BorrowedComponent } from './components/borrowed/borrowed.component';
       useValue: {
         autoLogin: false,
         providers: [
-          // {
-          //   id: GoogleLoginProvider.PROVIDER_ID,
-          //   provider: new GoogleLoginProvider(
-          //     '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com'
-          //   ),
-          // },
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              "869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com"
+            )
+          },
         ],
+        onError: (err) => {
+          console.error(err);
+        }
       } as SocialAuthServiceConfig,
-    },
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,9 @@
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <div
   class="card bg-dark position-absolute top-50 start-50 translate-middle border border-danger rounded-3"
 >
-  <ng-template  class="card-body" #displayUser>
+  <ng-template class="card-body" #displayUser>
     <div class="form-group">
       <label>First Name</label>
       <input
@@ -78,7 +79,26 @@
           Log In
         </button>
 
-        <!-- <button type="button" (click)="loginWithGoogle()" class="btn btn-danger">Login with Google</button> -->
+        <div class="w-75 mt-3 mx-3">
+          <!-- GOOGLE -->
+          <div
+            id="g_id_onload"
+            data-client_id="869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com"
+            data-context="signup"
+            data-ux_mode=""
+            data-login_uri="http://localhost:8080/api/auth/google"
+            data-auto_prompt="false"
+          ></div>
+          <div
+            class="g_id_signin"
+            data-type="standard"
+            data-shape="pill"
+            data-theme="outline"
+            data-text="signup_with"
+            data-size="medium"
+            data-logo_alignment="left"
+          ></div>
+        </div>
 
         <button
           type="button"
