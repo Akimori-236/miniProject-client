@@ -9,6 +9,7 @@
         <th scope="col">Model</th>
         <th scope="col">Serial No.</th>
         <th scope="col">Loaned From</th>
+        <th scope="col">Return</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,11 @@
         <td>{{ instr.model }}</td>
         <td>{{ instr.serial_number }}</td>
         <td>{{ instr.store_name }}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="returnInstrument(instr.instrument_id)">
+            Return
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
