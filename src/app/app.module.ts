@@ -11,7 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './components/register/register.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { BorrowedComponent } from './components/borrowed/borrowed.component';
 
@@ -59,9 +59,6 @@ import { BorrowedComponent } from './components/borrowed/borrowed.component';
             )
           },
         ],
-        onError: (err) => {
-          console.error(err);
-        }
       } as SocialAuthServiceConfig,
     }
   ],

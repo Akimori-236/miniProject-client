@@ -1,7 +1,8 @@
-import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
-import { Component } from '@angular/core';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { JwtApiService } from 'src/app/services/jwt-api.service';
 
 @Component({
@@ -9,16 +10,23 @@ import { JwtApiService } from 'src/app/services/jwt-api.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   registerForm!: FormGroup
   private accessToken = ""
+  authSub$!: Subscription
+  socialUser!: SocialUser
+  isLoggedIn!: boolean
 
   constructor(
     private fb: FormBuilder,
     private jwtSvc: JwtApiService,
     private router: Router,
-    private authService: SocialAuthService) { }
+    private socialAuthService: SocialAuthService) { }
+
+  ngOnDestroy(): void {
+    // this.authSub$.unsubscribe()
+  }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -27,10 +35,23 @@ export class RegisterComponent {
       email: this.fb.control<string>('', [Validators.required]),
       password: this.fb.control<string>('', [Validators.required, Validators.minLength(8)]),
     })
-    // if (localStorage.getItem("jwt") != null) {
-    //   this.router.navigate(['/'])
-    // }
-    // show "already logged in", timeout and then redirect
+    // GOOGLE LOGIN
+    this.authSub$ = this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user
+      this.isLoggedIn = user != null
+      console.log(this.socialUser)
+    })
+    if (this.isLoggedIn) {
+      this.accessToken = this.socialUser.idToken
+      this.jwtSvc.register(this.socialUser.firstName, this.socialUser.lastName, this.socialUser.email, this.socialUser.idToken)
+        .then(response => {
+          console.log(response)
+          localStorage.setItem("jwt", response['jwt'])
+          this.router.navigate(['/borrowed'])
+        })
+        .catch(err => console.error(err))
+      // send to SB for JWT and then redirect
+    }
   }
 
   register() {
@@ -42,29 +63,19 @@ export class RegisterComponent {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
-        this.router.navigate(['/'])
+        this.router.navigate(['/borrowed'])
       })
       .catch(err => console.error(err))
   }
 
-  // GOOGLE AUTH
-  // getAccessToken(): void {
-  //   this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(accessToken => this.accessToken = accessToken);
-  // }
-
-  // // REVOKED?
-  // // refreshToken(): void {
-  // //   this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
-  // // }
-
-  // async googleRegister() {
-  //   try {
-  //     const user = await this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  //     const token = user.authToken; // Get the user's authentication token
-  //     console.log(token); // Log the token to the console (for testing purposes)
-  //     // Send the token to your server for verification and user creation
-  //   } catch (err) {
-  //     console.error(err); // Handle any errors that occur during the sign-in process
-  //   }
-  // }
+  registerWithGoogle() {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then(resp => console.log(resp))
+      .catch(error => console.warn(error))
+  }
+  logout() {
+    this.socialAuthService.signOut()
+      .then(res => console.log("Logged out"))
+      .catch(error => console.warn("Not logged in"))
+  }
 }

@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-md navbar-dark bg-dark w-100 px-3 container-fluid"
+  class="z-1 navbar navbar-expand-md navbar-dark bg-dark w-100 px-3 container-fluid"
 >
   <a class="navbar-brand" href="#" [routerLink]="['/']"
     ><img src="#" alt="Logo"
@@ -14,7 +14,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+  <div class="collapse navbar-collapse " [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="#" [routerLink]="['/borrowed']">Borrowed Instruments</a>

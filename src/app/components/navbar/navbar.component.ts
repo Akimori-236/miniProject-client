@@ -1,3 +1,4 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,16 +12,18 @@ import { JwtApiService } from 'src/app/services/jwt-api.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  isCollapsed = true
-  searchForm!: FormGroup
-  isLoggedIn!: boolean
+  isCollapsed = true // for the hamburger menu
+  searchForm!: FormGroup // remove if not used
+  isLoggedIn: boolean = false
   loginSub$!: Subscription
+  username!: string
 
   constructor(
     private fb: FormBuilder,
     private jwtHelper: JwtHelperService,
     private router: Router,
-    private jwtSvc: JwtApiService) { }
+    private jwtSvc: JwtApiService,
+    private socialAuthService: SocialAuthService,) { }
 
   ngOnDestroy(): void {
     this.loginSub$.unsubscribe()
@@ -40,6 +43,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.socialAuthService.signOut()
     localStorage.removeItem('jwt')
     this.router.navigate(['/']).then(() => {
       window.location.reload()

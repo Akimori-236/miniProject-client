@@ -49,7 +49,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         localStorage.setItem("jwt", response['jwt'])
         this.router.navigate(['/borrowed'])
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err)
+        // if error403 display alert
+      })
   }
 
   loginWithGoogle() {
