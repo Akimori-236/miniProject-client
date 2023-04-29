@@ -1,9 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subscription } from 'rxjs';
 import { Instrument } from 'src/app/models/instrument';
-import { JwtApiService } from 'src/app/services/jwt-api.service';
-import { StoreDataService } from 'src/app/services/store-data.service';
 
 @Component({
   selector: 'app-main',
