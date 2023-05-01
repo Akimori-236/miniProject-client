@@ -7,5 +7,5 @@ export interface Instrument {
     model: string
     serial_number: string
     store_name: string
-    user: User
+    user?: User
 }
