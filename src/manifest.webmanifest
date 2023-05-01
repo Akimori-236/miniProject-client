@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "short_name": "client",
+  "name": "google-auth",
+  "short_name": "google-auth",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

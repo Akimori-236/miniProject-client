@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Observable, filter, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { Instrument } from '../models/instrument';
 
 @Injectable({

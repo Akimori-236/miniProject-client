@@ -1,5 +1,5 @@
 <div
-  class="card bg-dark position-absolute top-50 start-50 translate-middle border border-danger rounded-3"
+  class="card position-absolute top-50 start-50 translate-middle border border-primary rounded-3"
 >
   <div class="card-body">
     <!--LOGIN FORM-->
@@ -9,63 +9,75 @@
       [formGroup]="registerForm"
       (ngSubmit)="register()"
     >
-      <div class="form-group form-floating mt-1">
-        <input
-          type="text"
-          class="form-control"
-          id="firstnameID"
-          name="firstname"
-          placeholder="FirstName"
-          formControlName="firstname"
-        />
-        <label for="firstnameID">First Name</label>
-      </div>
-      <div class="form-group form-floating mt-1">
-        <input
-          type="text"
-          class="form-control"
-          id="lastnameID"
-          name="lastname"
-          placeholder="LastName"
-          formControlName="lastname"
-        />
-        <label for="lastnameID">Last Name</label>
-      </div>
-      <div class="form-group form-floating mt-1">
-        <input
-          type="email"
-          class="form-control"
-          id="emailID"
-          name="email"
-          aria-describedby="emailHelp"
-          placeholder="Email"
-          autofocus
-          formControlName="email"
-        />
-        <label for="emailID">Email</label>
-        <!-- <small id="emailHelp" class="form-text text-muted"
-          >email</small
-        > -->
-      </div>
-      <div class="form-group form-floating mt-1">
-        <input
-          type="password"
-          class="form-control"
-          id="passwordID"
-          name="password"
-          placeholder="Password"
-          formControlName="password"
-        />
-        <label for="passwordID">Password</label>
-      </div>
-
-      <div class="row">
-        <button type="submit" class="col btn btn-danger mt-3 mx-3">
-          Register
-        </button>
-        <!-- add google register button -->
-        
-      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="form-group form-floating">
+              <input
+                type="text"
+                class="form-control my-1"
+                id="firstnameID"
+                name="firstname"
+                placeholder="FirstName"
+                formControlName="firstname"
+              />
+              <label for="firstnameID">First Name</label>
+            </td>
+          </tr>
+          <tr class="form-group form-floating">
+            <input
+              type="text"
+              class="form-control my-1"
+              id="lastnameID"
+              name="lastname"
+              placeholder="LastName"
+              formControlName="lastname"
+            />
+            <label for="lastnameID">Last Name</label>
+          </tr>
+          <tr class="form-group form-floating">
+            <input
+              type="email"
+              class="form-control my-1"
+              id="emailID"
+              name="email"
+              aria-describedby="emailHelp"
+              placeholder="Email"
+              autofocus
+              formControlName="email"
+            />
+            <label for="emailID">Email</label>
+            <!-- <small id="emailHelp" class="form-text text-muted"
+            >email</small
+          > -->
+          </tr>
+          <tr class="form-group form-floating">
+            <input
+              type="password"
+              class="form-control my-1"
+              id="passwordID"
+              name="password"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <label for="passwordID">Password</label>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <button type="submit" class="btn btn-primary mx-autor mt-2 px-5">
+                Register
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="d-flex justify-content-center">
+              <div id="googleBtn" class="my-2">
+                <!-- google sign up button -->
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </form>
   </div>
 </div>

@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Instrument } from 'src/app/models/instrument';
+import { AuthService } from 'src/app/services/auth.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
 
 @Component({
@@ -14,18 +14,13 @@ export class BorrowedComponent implements OnInit {
   instrumentList: Instrument[] = []
 
   constructor(
-    private jwtHelper: JwtHelperService,
     private storeSvc: StoreDataService,
+    private authSvc: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
     const token = localStorage.getItem('jwt')
-    // check for login status
-    if (this.jwtHelper.isTokenExpired(token)) {
-      // no point keeping expired token i guess
-      localStorage.removeItem('jwt')
-    }
-    this.isLoggedIn = !!token
+    this.isLoggedIn = this.authSvc.isLoggedIn
     if (!this.isLoggedIn) {
       this.router.navigate(['/login'])
     }
@@ -42,7 +37,7 @@ export class BorrowedComponent implements OnInit {
   returnInstrument(id: number) {
     console.debug(id)
     // call server for qr-url for accepter to scan
-    
+
     // redirect? closable popup for qr image?
   }
 }

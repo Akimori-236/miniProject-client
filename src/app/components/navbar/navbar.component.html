@@ -1,6 +1,4 @@
-<nav
-  class="navbar navbar-expand-md navbar-dark bg-dark w-100 px-3 container-fluid"
->
+<nav class="navbar navbar-expand-md w-100 px-3 container-fluid">
   <a class="navbar-brand" href="#" [routerLink]="['/']"
     ><img src="#" alt="Logo"
   /></a>
@@ -17,7 +15,9 @@
   <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#" [routerLink]="['/borrowed']">Borrowed Instruments</a>
+        <a class="nav-link" href="#" [routerLink]="['/borrowed']"
+          >Borrowed Instruments</a
+        >
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link 2</a>
@@ -42,7 +42,7 @@
       </div>
       <ng-template #Login>
         <button
-          class="btn btn-outline-danger"
+          class="btn btn-primary"
           type="button"
           [routerLink]="['/login']"
         >
