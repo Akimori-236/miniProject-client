@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, firstValueFrom } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,16 @@ export class AuthService {
 
   get isLoggedIn() {
     return !!localStorage.getItem('jwt')
+  }
+
+  get firstname() {
+    const token = localStorage.getItem('jwt')
+    if (null != token) {
+      const decodedJWT: any = jwt_decode(token)
+      return decodedJWT['firstname']
+    } else {
+      return ""
+    }
   }
 
   register(firstname: string, lastname: string, email: string, password: string): Promise<any> {

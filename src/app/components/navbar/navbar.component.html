@@ -12,7 +12,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse " [ngbCollapse]="isCollapsed">
+  <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="#" [routerLink]="['/borrowed']"
@@ -20,35 +20,57 @@
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link 2</a>
+        <a class="nav-link" href="#" [routerLink]="['/borrowed']">Stores</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">Link 3</a>
-      </li>
-    </ul>
-    <form
-      class="d-flex ms-auto"
-      role="search"
-      [formGroup]="searchForm"
-      (ngSubmit)="search()"
-    >
-      <input class="form-control me-2" type="search" placeholder="Search" />
-      <button class="btn btn-outline-primary me-2" type="submit">Search</button>
-
-      <div *ngIf="isLoggedIn; else Login">
-        <button class="btn btn-outline-danger" type="button" (click)="logout()">
-          Logout
-        </button>
-      </div>
-      <ng-template #Login>
-        <button
-          class="btn btn-primary"
-          type="button"
-          [routerLink]="['/login']"
+      </li> -->
+      <!-- <li>
+        <form
+          class="d-flex ms-auto"
+          role="search"
+          [formGroup]="searchForm"
+          (ngSubmit)="search()"
         >
-          Login
+          <input class="form-control me-2" type="search" placeholder="Search" />
+          <button class="btn btn-outline-primary me-2" type="submit">
+            Search
+          </button>
+        </form>
+      </li> -->
+    </ul>
+
+    <div *ngIf="isLoggedIn; else Login">
+      <!-- <button class="btn btn-outline-danger" type="button" (click)="logout()">
+          Logout
+        </button> -->
+      <div ngbDropdown class="d-inline-block">
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          {{ firstname }}
         </button>
-      </ng-template>
-    </form>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem>Profile</button>
+          <button ngbDropdownItem>Borrowed Instruments</button>
+          <button ngbDropdownItem>Managed stores</button>
+          <button
+            ngbDropdownItem
+            class="bg-danger text-light"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-template #Login>
+      <button class="btn btn-primary" type="button" [routerLink]="['/login']">
+        Login
+      </button>
+    </ng-template>
   </div>
 </nav>

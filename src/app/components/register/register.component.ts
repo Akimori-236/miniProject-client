@@ -21,7 +21,21 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     private authSvc: AuthService,
     private _ngZone: NgZone) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    this.registerForm = this.fb.group({
+      firstname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
+      lastname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
+      email: this.fb.control<string>('', [Validators.required]),
+      password: this.fb.control<string>('', [Validators.required, Validators.minLength(8)]),
+    })
+
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    if (this.authSvc.isLoggedIn) {
+      timeout(3000)
+      this.router.navigate(['/']).then(() => {
+        window.location.reload()
+      })
+    }
     // @ts-ignore
     window.onGoogleLibraryLoad = () => {
       // @ts-ignore
@@ -45,21 +59,15 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      firstname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
-      lastname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
-      email: this.fb.control<string>('', [Validators.required]),
-      password: this.fb.control<string>('', [Validators.required, Validators.minLength(8)]),
-    })
-
-    this.isLoggedIn = this.authSvc.isLoggedIn
-    if (this.authSvc.isLoggedIn) {
-      timeout(3000)
-      this.router.navigate(['/']).then(() => {
-        window.location.reload()
-      })
-    }
+  ngAfterViewInit(): void {
+    // @ts-ignore
+    google.accounts.id.renderButton(
+      // @ts-ignore
+      document.getElementById("googleBtn"),
+      { theme: "outline", size: "large", width: "100%" }
+    )
+    // @ts-ignore
+    google.accounts.id.prompt((notification: PromptMomentNotification) => { })
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
@@ -88,5 +96,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     //     this.router.navigate(['/'])
     //   })
     //   .catch(err => console.error(err))
+  }
+
+  googleRegister() {
+
   }
 }

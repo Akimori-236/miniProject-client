@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
 
   isCollapsed: boolean = true
   isLoggedIn: boolean = false
   searchForm!: FormGroup
+  firstname!: string
+  // User: User
 
   constructor(
     private fb: FormBuilder,
@@ -23,10 +26,12 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       // console.log(event instanceof NavigationEnd)
       this.isLoggedIn = this.authSvc.isLoggedIn
+      this.firstname = this.authSvc.firstname
     })
     this.searchForm = this.fb.group({
       search: this.fb.control<string>('', [Validators.required]),
     })
+
   }
 
   logout() {

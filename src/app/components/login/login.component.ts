@@ -21,28 +21,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private authSvc: AuthService,
     private _ngZone: NgZone) { }
 
-  ngAfterViewInit(): void {
-    // @ts-ignore
-    window.onGoogleLibraryLoad = () => {
-      // @ts-ignore
-      google.accounts.id.initialize({
-        client_id: '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com',
-        context: "signin",
-        // can only have either ballback or login_uri NOT BOTH
-        callback: this.handleCredentialResponse.bind(this),
-        auto_select: false, // autoselects first google account of user to login
-        cancel_on_tap_outside: true // cancel if user clicks outside of popup
-      })
-      // @ts-ignore
-      google.accounts.id.renderButton(
-        // @ts-ignore
-        document.getElementById("googleBtn"),
-        { theme: "outline", size: "large", width: "100%" }
-      )
-      // @ts-ignore
-      google.accounts.id.prompt((notification: PromptMomentNotification) => { })
-    }
-  }
+
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -56,6 +35,29 @@ export class LoginComponent implements OnInit, AfterViewInit {
         window.location.reload()
       })
     }
+    // @ts-ignore
+    window.onGoogleLibraryLoad = () => {
+      // @ts-ignore
+      google.accounts.id.initialize({
+        client_id: '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com',
+        context: "signin",
+        // can only have either ballback or login_uri NOT BOTH
+        callback: this.handleCredentialResponse.bind(this),
+        auto_select: false, // autoselects first google account of user to login
+        cancel_on_tap_outside: true // cancel if user clicks outside of popup
+      })
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // @ts-ignore
+    google.accounts.id.renderButton(
+      // @ts-ignore
+      document.getElementById("googleBtn"),
+      { theme: "outline", size: "large", width: "100%" }
+    )
+    // @ts-ignore
+    google.accounts.id.prompt((notification: PromptMomentNotification) => { })
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
