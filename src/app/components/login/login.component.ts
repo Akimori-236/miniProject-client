@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup
   isLoggedIn: boolean = false
@@ -20,8 +20,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private router: Router,
     private authSvc: AuthService,
     private _ngZone: NgZone) { }
-
-
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -36,20 +34,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
       })
     }
     // @ts-ignore
-    window.onGoogleLibraryLoad = () => {
-      // @ts-ignore
-      google.accounts.id.initialize({
-        client_id: '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com',
-        context: "signin",
-        // can only have either ballback or login_uri NOT BOTH
-        callback: this.handleCredentialResponse.bind(this),
-        auto_select: false, // autoselects first google account of user to login
-        cancel_on_tap_outside: true // cancel if user clicks outside of popup
-      })
-    }
-  }
-
-  ngAfterViewInit(): void {
+    google.accounts.id.initialize({
+      client_id: '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com',
+      context: "signin",
+      // can only have either ballback or login_uri NOT BOTH
+      callback: this.handleCredentialResponse.bind(this),
+      auto_select: false, // autoselects first google account of user to login
+      cancel_on_tap_outside: true // cancel if user clicks outside of popup
+    })
     // @ts-ignore
     google.accounts.id.renderButton(
       // @ts-ignore
@@ -58,6 +50,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     )
     // @ts-ignore
     google.accounts.id.prompt((notification: PromptMomentNotification) => { })
+
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
