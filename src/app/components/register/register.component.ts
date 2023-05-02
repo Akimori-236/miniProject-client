@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialResponse } from 'google-one-tap';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit, AfterViewInit {
+export class RegisterComponent implements OnInit {
 
   registerForm!: FormGroup
   isLoggedIn: boolean = false
@@ -55,17 +55,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     google.accounts.id.prompt((notification: PromptMomentNotification) => { })
 
-  }
-
-  ngAfterViewInit(): void {
-    // @ts-ignore
-    google.accounts.id.renderButton(
-      // @ts-ignore
-      document.getElementById("googleBtn"),
-      { theme: "outline", size: "large", width: "100%" }
-    )
-    // @ts-ignore
-    google.accounts.id.prompt((notification: PromptMomentNotification) => { })
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
