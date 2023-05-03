@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   register(givenname: string, familyname: string, email: string, password: string): Promise<any> {
-    const body = { givenname, familyname, email, password }
+    const body = { givenname, familyname, email, password, isGoogleLogin: false }
     return firstValueFrom(
       this.http.post<any>("/api/auth/register", body)
     )
