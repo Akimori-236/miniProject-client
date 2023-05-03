@@ -22,16 +22,15 @@
     <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav mr-auto col-6 ms-auto text-end">
         <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="['/borrowed']">
-            Borrowed Instruments
+          <a class="nav-link" href="#" [routerLink]="['/about']">
+            About
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="['/borrowed']">Stores</a>
-        </li>
+
         <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Link 3</a>
-      </li> -->
+          <a class="nav-link" href="#" [routerLink]="['/borrowed']">Stores</a>
+        </li> -->
+
         <!-- <li>
         <form
           class="d-flex ms-auto"
@@ -59,7 +58,7 @@
               {{ givenname | titlecase }}
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="text-end">
-              <button ngbDropdownItem>Profile</button>
+              <button ngbDropdownItem [routerLink]="['/profile']">Profile</button>
               <button ngbDropdownItem [routerLink]="['/borrowed']">Borrowed Instruments</button>
               <button ngbDropdownItem [routerLink]="['/store']">Managed stores</button>
               <button

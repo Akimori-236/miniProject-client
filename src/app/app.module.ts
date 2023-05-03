@@ -12,6 +12,9 @@ import { BorrowedComponent } from './components/borrowed/borrowed.component';
 import { MainComponent } from './components/main/main.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AboutComponent } from './components/about/about.component';
+import { StoresComponent } from './components/stores/stores.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     RegisterComponent,
     BorrowedComponent,
     MainComponent,
-    NavbarComponent
+    NavbarComponent,
+    AboutComponent,
+    StoresComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
