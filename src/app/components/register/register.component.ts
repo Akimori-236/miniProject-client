@@ -100,5 +100,5 @@ export class RegisterComponent implements OnInit {
         }
       })
   }
-
+  // TODO: grey out or show loading circle when loading
 }

@@ -81,4 +81,6 @@ export class LoginComponent implements OnInit {
         window.alert(error)
       })
   }
+
+   // TODO: grey out or show loading circle when loading
 }
