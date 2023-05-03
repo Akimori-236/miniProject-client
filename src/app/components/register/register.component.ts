@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
     // @ts-ignore
     google.accounts.id.prompt((notification: PromptMomentNotification) => { })
 
-  } 
+  }
 
   handleCredentialResponse(response: CredentialResponse) {
     this.authSvc.googleRegister(response.credential)
@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
         if (error.status === 409) {
           window.alert("This email is already registered. Please log in instead.")
           this._ngZone.run(() => {
-            this.router.navigate(['/login']) // send user to whatever page after logged in
+            this.router.navigate(['/login'])
           })
         }
       })
@@ -87,7 +87,18 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem("jwt", response['jwt'])
         this.router.navigate(['/borrowed'])
       })
-      .catch(err => console.error(err))
+      .catch(error => {
+        console.error(error)
+        if (error.status === 409) {
+          window.alert("This email is already registered. Please log in instead.")
+          this._ngZone.run(() => {
+            this.router.navigate(['/login'])
+          })
+        } else {
+          console.warn(error)
+          window.alert(error['error'])
+        }
+      })
   }
 
 }

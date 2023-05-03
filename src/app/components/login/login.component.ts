@@ -76,9 +76,9 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("jwt", response['jwt'])
         this.router.navigate(['/borrowed'])
       })
-      .catch(err => {
-        console.error(err)
-        // if error403 display alert
+      .catch(error => {
+        console.error(error)
+        window.alert(error)
       })
   }
 }
