@@ -15,10 +15,10 @@
     <tbody>
       <tr *ngFor="let instr of instrumentList; index as i">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ instr.type }}</td>
-        <td>{{ instr.model }}</td>
-        <td>{{ instr.serial_number }}</td>
-        <td>{{ instr.store_name }}</td>
+        <td>{{ instr.type | titlecase }}</td>
+        <td>{{ instr.model | titlecase }}</td>
+        <td>{{ instr.serial_number | lowercase }}</td>
+        <td>{{ instr.store_name | titlecase }}</td>
         <td>
           <button
             type="button"

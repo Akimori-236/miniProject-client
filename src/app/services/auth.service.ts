@@ -17,29 +17,21 @@ export class AuthService {
     return !!localStorage.getItem('jwt')
   }
 
-  get firstname() {
+  get givenname() {
     const token = localStorage.getItem('jwt')
     if (null != token) {
       const decodedJWT: any = jwt_decode(token)
-      return decodedJWT['firstname']
+      return decodedJWT['givenname']
     } else {
       return ""
     }
   }
 
-  register(firstname: string, lastname: string, email: string, password: string): Promise<any> {
-    const body = { firstname, lastname, email, password }
+  register(givenname: string, familyname: string, email: string, password: string): Promise<any> {
+    const body = { givenname, familyname, email, password }
     return firstValueFrom(
       this.http.post<any>("/api/auth/register", body)
     )
-  }
-
-  // check if google token is real in backend
-  googleLogin(credentials: string): Observable<any> {
-    console.info(credentials)
-    const headers = new HttpHeaders()
-      .set("Content-type", "application/json")
-    return (this.http.post("/api/auth/LoginWithGoogle", JSON.stringify(credentials), { headers }))
   }
 
   login(email: string, password: string): Promise<any> {
@@ -47,6 +39,24 @@ export class AuthService {
     return firstValueFrom(
       this.http.post<any>("/api/auth/login", body)
     )
+  }
+
+  // check if google token is real in backend
+  googleRegister(credentials: string): Promise<any> {
+    console.info(credentials)
+    const headers = new HttpHeaders()
+      .set("Content-type", "application/json")
+    // send google idToken to springboot
+    return firstValueFrom(this.http.post("/api/auth/googleregister", credentials, { headers }))
+  }
+
+  // check if google token is real in backend
+  googleLogin(credentials: string): Promise<any> {
+    console.info(credentials)
+    const headers = new HttpHeaders()
+      .set("Content-type", "application/json")
+    // send google idToken to springboot
+    return firstValueFrom(this.http.post("/api/auth/googlelogin", credentials, { headers }))
   }
 
   logout() {

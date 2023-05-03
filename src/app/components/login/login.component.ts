@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     google.accounts.id.renderButton(
       // @ts-ignore
       document.getElementById("googleBtn"),
-      { theme: "outline", size: "large", width: "100%" }
+      { theme: "filled_blue", text: "signin_with", shape: "rectangular" }
     )
     // @ts-ignore
     google.accounts.id.prompt((notification: PromptMomentNotification) => { })
@@ -54,17 +54,17 @@ export class LoginComponent implements OnInit {
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
-    await this.authSvc.googleLogin(response.credential).subscribe(
-      (creds: any) => {
-        localStorage.setItem("token", creds.token) // save google token
+    await this.authSvc.googleLogin(response.credential)
+      .then((response) => {
+        console.log(response)
+        localStorage.setItem("jwt", response['jwt'])
         this._ngZone.run(() => {
-          this.router.navigate(['/logout']) // send user to whatever page after logged in
+          this.router.navigate(['/borrowed']) // send user to whatever page after logged in
         })
-      },
-      // (error: any) => {
-      //   console.debug(error)
-      // }
-    )
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   login() {

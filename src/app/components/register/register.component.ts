@@ -23,8 +23,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      firstname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
-      lastname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
+      givenname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
+      familyname: this.fb.control<string>('', [Validators.required, Validators.pattern("^[a-zA-Z]{2,}$")]),
       email: this.fb.control<string>('', [Validators.required]),
       password: this.fb.control<string>('', [Validators.required, Validators.minLength(8)]),
     })
@@ -39,53 +39,55 @@ export class RegisterComponent implements OnInit {
     // @ts-ignore
     google.accounts.id.initialize({
       client_id: '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com',
-      context: "signup",
+      context: "signin",
       // can only have either ballback or login_uri NOT BOTH
       callback: this.handleCredentialResponse.bind(this),
       auto_select: false, // autoselects first google account of user to login
       cancel_on_tap_outside: true, // cancel if user clicks outside of popup
-      log_level: "debug"
+      // log_level: "debug"
     })
     // @ts-ignore
     google.accounts.id.renderButton(
       // @ts-ignore
       document.getElementById("googleBtn"),
-      { theme: "outline", size: "large", width: "100%" }
+      { theme: "filled_blue", text: "signup_with", shape: "rectangular" }
     )
     // @ts-ignore
     google.accounts.id.prompt((notification: PromptMomentNotification) => { })
 
-  }
+  } 
 
-  async handleCredentialResponse(response: CredentialResponse) {
-    await this.authSvc.googleLogin(response.credential).subscribe(
-      (creds: any) => {
-        localStorage.setItem("token", creds.token) // save google token
+  handleCredentialResponse(response: CredentialResponse) {
+    this.authSvc.googleRegister(response.credential)
+      .then(response => {
+        console.log(response)
+        localStorage.setItem("jwt", response['jwt'])
         this._ngZone.run(() => {
-          this.router.navigate(['/logout']) // send user to whatever page after logged in
+          this.router.navigate(['/borrowed']) // send user to whatever page after logged in
         })
-      },
-      // (error: any) => {
-      //   console.debug(error)
-      // }
-    )
+      })
+      .catch(error => {
+        if (error.status === 409) {
+          window.alert("This email is already registered. Please log in instead.")
+          this._ngZone.run(() => {
+            this.router.navigate(['/login']) // send user to whatever page after logged in
+          })
+        }
+      })
   }
 
   register() {
-    const firstname = this.registerForm.value['firstname']
-    const lastname = this.registerForm.value['lastname']
+    const givenname = this.registerForm.value['givenname']
+    const familyname = this.registerForm.value['familyname']
     const email = this.registerForm.value['email']
     const password = this.registerForm.value['password']
-    // this.jwtSvc.register(firstname, lastname, email, password)
-    //   .then(response => {
-    //     console.log(response)
-    //     localStorage.setItem("jwt", response['jwt'])
-    //     this.router.navigate(['/'])
-    //   })
-    //   .catch(err => console.error(err))
+    this.authSvc.register(givenname, familyname, email, password)
+      .then(response => {
+        console.log(response)
+        localStorage.setItem("jwt", response['jwt'])
+        this.router.navigate(['/borrowed'])
+      })
+      .catch(err => console.error(err))
   }
 
-  googleRegister() {
-
-  }
 }

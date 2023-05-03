@@ -1,31 +1,38 @@
-<nav class="navbar navbar-expand-md w-100 px-3 container-fluid">
-  <a class="navbar-brand" href="#" [routerLink]="['/']"
-    ><img class="w-25 h-25" src="assets/51.png" alt="Logo"
-  /></a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    (click)="isCollapsed = !isCollapsed"
-    [attr.aria-expanded]="!isCollapsed"
-    aria-controls="navbarSupportedContent"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#" [routerLink]="['/borrowed']"
-          >Borrowed Instruments</a
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-md w-100">
+    <tr>
+      <td>
+        <a class="navbar-brand" href="#" [routerLink]="['/']"
+          ><img class="w-25 h-25" src="assets/51.png" alt="Logo"
+        /></a>
+      </td>
+      <td>
+        <button
+          class="navbar-toggler"
+          type="button"
+          (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed"
+          aria-controls="navbarSupportedContent"
         >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" [routerLink]="['/borrowed']">Stores</a>
-      </li>
-      <!-- <li class="nav-item">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </td>
+    </tr>
+
+    <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav mr-auto col-6 ms-auto text-end">
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/borrowed']">
+            Borrowed Instruments
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/borrowed']">Stores</a>
+        </li>
+        <!-- <li class="nav-item">
         <a class="nav-link" href="#">Link 3</a>
       </li> -->
-      <!-- <li>
+        <!-- <li>
         <form
           class="d-flex ms-auto"
           role="search"
@@ -38,39 +45,44 @@
           </button>
         </form>
       </li> -->
-    </ul>
-
-    <div *ngIf="isLoggedIn; else Login">
-      <!-- <button class="btn btn-outline-danger" type="button" (click)="logout()">
+        <li *ngIf="isLoggedIn; else Login">
+          <!-- <button class="btn btn-outline-danger" type="button" (click)="logout()">
           Logout
         </button> -->
-      <div ngbDropdown class="d-inline-block">
+          <div ngbDropdown class="col-8-md ms-auto">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              {{ givenname | titlecase }}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="text-end">
+              <button ngbDropdownItem>Profile</button>
+              <button ngbDropdownItem [routerLink]="['/borrowed']">Borrowed Instruments</button>
+              <button ngbDropdownItem [routerLink]="['/store']">Managed stores</button>
+              <button
+                ngbDropdownItem
+                class="bg-danger text-light"
+                (click)="logout()"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <ng-template #Login>
         <button
+          class="btn btn-primary col ms-auto text-end"
           type="button"
-          class="btn btn-primary"
-          id="dropdownBasic1"
-          ngbDropdownToggle
+          [routerLink]="['/login']"
         >
-          {{ firstname }}
+          Login
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem>Profile</button>
-          <button ngbDropdownItem>Borrowed Instruments</button>
-          <button ngbDropdownItem>Managed stores</button>
-          <button
-            ngbDropdownItem
-            class="bg-danger text-light"
-            (click)="logout()"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
+      </ng-template>
     </div>
-    <ng-template #Login>
-      <button class="btn btn-primary ms-auto" type="button" [routerLink]="['/login']">
-        Login
-      </button>
-    </ng-template>
-  </div>
-</nav>
+  </nav>
+</div>

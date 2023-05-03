@@ -16,7 +16,7 @@ export class StoreDataService {
     // const params = new HttpParams().set("email", email)
     return firstValueFrom(
       this.http.get<Instrument[]>("/api/data/borrowed", { headers })
-    );
+    )
   }
 
 }

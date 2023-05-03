@@ -18,24 +18,24 @@
               <input
                 type="text"
                 class="form-control my-1"
-                id="firstnameID"
-                name="firstname"
+                id="givennameID"
+                name="givenname"
                 placeholder="FirstName"
-                formControlName="firstname"
+                formControlName="givenname"
               />
-              <label for="firstnameID">First Name</label>
+              <label for="givennameID">Given Name</label>
             </td>
           </tr>
           <tr class="form-group form-floating">
             <input
               type="text"
               class="form-control my-1"
-              id="lastnameID"
-              name="lastname"
+              id="familynameID"
+              name="familyname"
               placeholder="LastName"
-              formControlName="lastname"
+              formControlName="familyname"
             />
-            <label for="lastnameID">Last Name</label>
+            <label for="familynameID">Family Name</label>
           </tr>
           <tr class="form-group form-floating">
             <input
@@ -66,7 +66,7 @@
           </tr>
           <tr>
             <td class="text-center">
-              <button type="submit" class="btn btn-primary mx-autor mt-2 px-5">
+              <button type="submit" class="w-100 btn btn-primary mt-3">
                 Register
               </button>
             </td>
@@ -81,24 +81,5 @@
         </tbody>
       </table>
     </form>
-    <div class="mt-3 d-flex justify-content-center">
-      <!-- GOOGLE -->
-      <div
-        id="g_id_onload"
-        data-client_id="869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com"
-        data-context="signup"
-        data-ux_mode="popup"
-      ></div>
-      <div
-        class="g_id_signin"
-        data-type="standard"
-        data-shape="pill"
-        data-theme="outline"
-        data-text="signup_with"
-        data-size="large"
-        data-logo_alignment="left"
-        (click)="googleRegister()"
-      ></div>
-    </div>
   </div>
 </div>

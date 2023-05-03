@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   isCollapsed: boolean = true
   isLoggedIn: boolean = false
   searchForm!: FormGroup
-  firstname!: string
+  givenname!: string
   // User: User
 
   constructor(
@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       // console.log(event instanceof NavigationEnd)
       this.isLoggedIn = this.authSvc.isLoggedIn
-      this.firstname = this.authSvc.firstname
+      this.givenname = this.authSvc.givenname
     })
     this.searchForm = this.fb.group({
       search: this.fb.control<string>('', [Validators.required]),

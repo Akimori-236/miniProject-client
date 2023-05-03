@@ -30,6 +30,10 @@ export class BorrowedComponent implements OnInit {
         .then(response => {
           console.log(response)
           this.instrumentList = response
+        }).catch((err) => {
+          // on fail, login again
+          localStorage.removeItem('jwt')
+          this.router.navigate(['/login'])
         })
     }
   }
