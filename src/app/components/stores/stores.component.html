@@ -1,9 +1,75 @@
 <div class="container">
-    <div class="row">
-        <h1>Stores that you manage</h1>
-        <button type="button" class="btn btn-primary">Create New Store</button>
-        
-    </div>
-
-
+  <div class="row">
+    <h1 class="col">Managed Stores</h1>
+    <button
+      type="button"
+      class="col-auto ms-auto btn btn-primary me-1"
+      (click)="openPopup(createStore)"
+    >
+      Create Store
+    </button>
+    <table class="mt-3 table" *ngIf="storeList; else noStores">
+      <thead>
+        <tr>
+          <th>Store Name</th>
+          <th>Managers</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let store of storeList; let i = index">
+        <tr>
+          <td [attr.colspan]="store.managers.length">{{ store.storeName }}</td>
+          <!-- maybe  store creator? -->
+        </tr>
+        <tr *ngFor="let m of store.managers">
+          <td></td>
+          <td>{{ m.givenname | titlecase }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+<ng-template #noStores>
+  <div
+    class="card position-absolute top-50 start-50 translate-middle border border-danger rounded-3 w-50"
+  >
+    <span class="card-body text-center"> You are not managing any store. </span>
+  </div>
+</ng-template>
+<ng-template #createStore let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create New Store</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <!-- Close the popup -->
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="createStoreForm">
+      <div class="mb-3">
+        <label for="storeNameID">Store Name</label>
+        <div class="input-group">
+          <input
+            id="storeNameID"
+            class="form-control"
+            name="storeName"
+            type="text"
+            formControlName="storeName"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
