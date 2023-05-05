@@ -20,7 +20,7 @@
     </tr>
 
     <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
-      <ul class="navbar-nav mr-auto col-6 ms-auto text-end">
+      <ul class="navbar-nav col-auto ms-auto text-end">
         <li class="nav-item">
           <a class="nav-link" href="#" [routerLink]="['/about']">
             About
@@ -48,7 +48,7 @@
           <!-- <button class="btn btn-outline-danger" type="button" (click)="logout()">
           Logout
         </button> -->
-          <div ngbDropdown class="col-8-md ms-auto">
+          <div ngbDropdown class="ms-auto">
             <button
               type="button"
               class="btn btn-primary"
@@ -57,7 +57,7 @@
             >
               {{ givenname | titlecase }}
             </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="text-end">
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="text-end dropdown-menu-end">
               <button ngbDropdownItem [routerLink]="['/profile']">Profile</button>
               <button ngbDropdownItem [routerLink]="['/borrowed']">Borrowed Instruments</button>
               <button ngbDropdownItem [routerLink]="['/stores']">Managed stores</button>
