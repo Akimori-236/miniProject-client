@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Instrument } from '../models/instrument';
@@ -25,6 +25,15 @@ export class StoreDataService {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
     return firstValueFrom(
       this.http.get<Store[]>("/api/data/store/managers", { headers })
+    )
+  }
+
+  createStore(storeName: string): Promise<any> {
+    const token = localStorage.getItem("jwt")
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+    let params = new HttpParams().set("storename", storeName)
+    return firstValueFrom(
+      this.http.post<any>("/api/data/store/create", {}, { headers, params })
     )
   }
 }

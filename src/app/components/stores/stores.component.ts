@@ -48,7 +48,10 @@ export class StoresComponent implements OnInit {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
         console.warn(this.createStoreForm.value['storeName'])
-        this.storeSvc.createStore(this.createStoreForm.value['storeName']).then(response => console.log("create store: " + response))
+        // send to API
+        this.storeSvc.createStore(this.createStoreForm.value['storeName'])
+          .then(response => console.log("create store: " + response))
+          .catch(err => console.warn(err))
         console.log(`Closed with: ${result}`)
       },
       (reason) => {
