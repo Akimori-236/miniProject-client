@@ -20,20 +20,20 @@ export class StoreDataService {
     )
   }
 
-  getManagedStores(): Promise<Store[]> {
-    const token = localStorage.getItem("jwt")
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
-    return firstValueFrom(
-      this.http.get<Store[]>("/api/data/store/managers", { headers })
-    )
-  }
-
   createStore(storeName: string): Promise<any> {
     const token = localStorage.getItem("jwt")
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
     let params = new HttpParams().set("storename", storeName)
     return firstValueFrom(
       this.http.post<any>("/api/data/store/create", {}, { headers, params })
+    )
+  }
+
+  getManagedStores(): Promise<Store[]> {
+    const token = localStorage.getItem("jwt")
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+    return firstValueFrom(
+      this.http.get<Store[]>("/api/data/store", { headers })
     )
   }
 }

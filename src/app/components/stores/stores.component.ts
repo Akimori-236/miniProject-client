@@ -31,27 +31,33 @@ export class StoresComponent implements OnInit {
     // go login if not logged in
     if (!this.isLoggedIn) {
       this.router.navigate(['/login'])
+    } else {
+      // load managed stores
+      this.loadStores()
     }
-    // load managed stores
-    this.storeSvc.getManagedStores()
-      .then(response => {
-        this.storeList = response
-      }).catch((err) => {
-        // on fail, login again
-        localStorage.removeItem('jwt')
-        this.router.navigate(['/login'])
-      })
   }
 
+  loadStores() {
+    this.storeSvc.getManagedStores()
+      .then(response => { this.storeList = response })
+      .catch((err) => { console.warn(err) })
+  }
 
   openPopup(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+    this.modalService.open(content, { ariaLabelledBy: 'modal-create-store' }).result.then(
       (result) => {
         console.warn(this.createStoreForm.value['storeName'])
         // send to API
         this.storeSvc.createStore(this.createStoreForm.value['storeName'])
-          .then(response => console.log("create store: " + response))
-          .catch(err => console.warn(err))
+          .then(response => {
+            console.log("create store: " + response)
+            // reload component data
+            this.loadStores()
+          })
+          .catch(err => {
+            console.warn(err)
+            // TODO: open popup warning failure
+          })
         console.log(`Closed with: ${result}`)
       },
       (reason) => {
@@ -68,5 +74,9 @@ export class StoresComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  getStoreDetails(storeid: number) {
+    console.debug("Loading Store: " + storeid)
   }
 }

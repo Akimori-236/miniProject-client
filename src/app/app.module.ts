@@ -15,6 +15,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AboutComponent } from './components/about/about.component';
 import { StoresComponent } from './components/stores/stores.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { InstrumentsComponent } from './components/instruments/instruments.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     NavbarComponent,
     AboutComponent,
     StoresComponent,
-    ProfileComponent
+    ProfileComponent,
+    InstrumentsComponent
   ],
   imports: [
     BrowserModule,
