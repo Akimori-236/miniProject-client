@@ -19,23 +19,21 @@ export class BorrowedComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    const token = localStorage.getItem('jwt')
     this.isLoggedIn = this.authSvc.isLoggedIn
     if (!this.isLoggedIn) {
       this.router.navigate(['/login'])
     }
-    if (!!token) {
-      // load borrowed items
-      this.storeSvc.getBorrowed()
-        .then(response => {
-          console.log(response)
-          this.instrumentList = response
-        }).catch((err) => {
-          // on fail, login again
-          localStorage.removeItem('jwt')
-          this.router.navigate(['/login'])
-        })
-    }
+    const token = localStorage.getItem('jwt')
+    // load borrowed items
+    this.storeSvc.getBorrowed()
+      .then(response => {
+        console.log(response)
+        this.instrumentList = response
+      }).catch((err) => {
+        // on fail, login again
+        localStorage.removeItem('jwt')
+        this.router.navigate(['/login'])
+      })
   }
 
   returnInstrument(id: number) {
