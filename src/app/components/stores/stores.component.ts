@@ -16,6 +16,7 @@ export class StoresComponent implements OnInit {
   storeList!: Store[]
   createStoreForm!: FormGroup
   currentStoreID!: string
+  currentStoreName!: string
 
   constructor(
     private authSvc: AuthService,
@@ -79,8 +80,9 @@ export class StoresComponent implements OnInit {
     }
   }
 
-  getStoreDetails(storeid: string) {
+  getStoreDetails(storeid: string, storeName: string) {
     // console.debug("Loading Store: " + storeid)
     this.currentStoreID = storeid
+    this.currentStoreName = storeName
   }
 }

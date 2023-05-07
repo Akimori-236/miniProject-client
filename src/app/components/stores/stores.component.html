@@ -69,13 +69,13 @@
       type="button"
       class="btn btn-danger col-auto m-1"
       *ngFor="let store of storeList"
-      (click)="getStoreDetails(store.store_id)"
+      (click)="getStoreDetails(store.store_id, store.store_name)"
     >
       {{ store.store_name }}
     </button>
   </div>
   <div *ngIf="currentStoreID">
-    <app-instruments [currentStoreID]="currentStoreID">
+    <app-instruments [currentStoreID]="currentStoreID" [currentStoreName]="currentStoreName">
       <!-- use input to pass in storeid -->
     </app-instruments>
   </div>

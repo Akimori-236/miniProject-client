@@ -1,12 +1,16 @@
 import { User } from "./user"
 
 export interface Instrument {
-    instrument_id: number
-    type: string
+    instrument_id: string
+    instrument_type: string
     brand: string
     model: string
     serial_number: string
-    store_id?: string
+    store_id: string
     store_name: string
-    user?: User
+    isRepairing: boolean
+    // loaned out to
+    email: string
+    givenname: string
+    familyname: string
 }

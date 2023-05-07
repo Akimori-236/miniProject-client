@@ -16,6 +16,7 @@ import { AboutComponent } from './components/about/about.component';
 import { StoresComponent } from './components/stores/stores.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { InstrumentsComponent } from './components/instruments/instruments.component';
+import { TableInstrumentsComponent } from './components/table-instruments/table-instruments.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InstrumentsComponent } from './components/instruments/instruments.compo
     AboutComponent,
     StoresComponent,
     ProfileComponent,
-    InstrumentsComponent
+    InstrumentsComponent,
+    TableInstrumentsComponent
   ],
   imports: [
     BrowserModule,

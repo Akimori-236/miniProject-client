@@ -65,6 +65,9 @@ export class AuthService {
     localStorage.removeItem('jwt')
     console.log("JWT Deleted")
     this.router.navigate(['/'])
+    // .then(() => {
+    //   window.location.reload()
+    // })
   }
 
 }

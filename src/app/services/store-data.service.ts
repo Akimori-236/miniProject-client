@@ -5,39 +5,44 @@ import { Instrument } from '../models/instrument';
 import { Store } from '../models/store';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class StoreDataService {
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-  getBorrowed(): Promise<Instrument[]> {
-    const token = localStorage.getItem("jwt")
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
-    // const params = new HttpParams().set("email", email)
-    return firstValueFrom(
-      this.http.get<Instrument[]>("/api/data/borrowed", { headers })
-    )
-  }
+    getBorrowed(): Promise<Instrument[]> {
+        const token = localStorage.getItem("jwt")
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        // const params = new HttpParams().set("email", email)
+        return firstValueFrom(
+            this.http.get<Instrument[]>("/api/data/borrowed", { headers })
+        )
+    }
 
-  createStore(storeName: string): Promise<any> {
-    const token = localStorage.getItem("jwt")
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
-    let params = new HttpParams().set("storename", storeName)
-    return firstValueFrom(
-      this.http.post<any>("/api/data/store/create", {}, { headers, params })
-    )
-  }
+    createStore(storeName: string): Promise<any> {
+        const token = localStorage.getItem("jwt")
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        let params = new HttpParams().set("storename", storeName)
+        return firstValueFrom(
+            this.http.post<any>("/api/data/store/create", {}, { headers, params })
+        )
+    }
 
-  getManagedStores(): Promise<Store[]> {
-    const token = localStorage.getItem("jwt")
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
-    return firstValueFrom(
-      this.http.get<Store[]>("/api/data/store", { headers })
-    )
-  }
+    getManagedStores(): Promise<Store[]> {
+        const token = localStorage.getItem("jwt")
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        return firstValueFrom(
+            this.http.get<Store[]>("/api/data/store", { headers })
+        )
+    }
 
-  getStoreDetails(storeID: string) {
-    console.log(storeID)
-  }
+    getStoreDetails(storeID: string): Promise<any> {
+        // console.log(storeID)
+        const token = localStorage.getItem("jwt")
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        return firstValueFrom(
+            this.http.get<Store[]>("/api/data/store/" + storeID, { headers })
+        )
+    }
 }
