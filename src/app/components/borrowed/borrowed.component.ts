@@ -30,13 +30,11 @@ export class BorrowedComponent implements OnInit {
         console.log(response)
         this.instrumentList = response
       }).catch((err) => {
-        // on fail, login again
-        localStorage.removeItem('jwt')
-        this.router.navigate(['/login'])
+        console.error(err)
       })
   }
 
-  returnInstrument(id: number) {
+  returnInstrument(id: string) {
     console.debug(id)
     // call server for qr-url for accepter to scan
 
