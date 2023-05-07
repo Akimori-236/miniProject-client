@@ -15,6 +15,7 @@ export class StoresComponent implements OnInit {
   isLoggedIn!: boolean
   storeList!: Store[]
   createStoreForm!: FormGroup
+  currentStoreID!: number
 
   constructor(
     private authSvc: AuthService,
@@ -40,7 +41,9 @@ export class StoresComponent implements OnInit {
   loadStores() {
     this.storeSvc.getManagedStores()
       .then(response => { this.storeList = response })
-      .catch((err) => { console.warn(err) })
+      .catch((err) => {
+        console.warn(err)
+      })
   }
 
   openPopup(content: any) {
@@ -77,6 +80,7 @@ export class StoresComponent implements OnInit {
   }
 
   getStoreDetails(storeid: number) {
-    console.debug("Loading Store: " + storeid)
+    // console.debug("Loading Store: " + storeid)
+    this.currentStoreID = storeid
   }
 }

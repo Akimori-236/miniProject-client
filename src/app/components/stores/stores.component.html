@@ -60,7 +60,7 @@
   <div class="row">
     <button
       type="button"
-      class="btn btn-dark col-auto m-2"
+      class="btn btn-dark col-auto m-1"
       *ngFor="let store of storeList"
       (click)="getStoreDetails(store.store_id)"
     >
@@ -68,7 +68,7 @@
     </button>
   </div>
 
-  <app-instruments>
+  <app-instruments [currentStoreID]="currentStoreID">
     <!-- use input to pass in storeid -->
   </app-instruments>
 </div>

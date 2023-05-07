@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, firstValueFrom } from 'rxjs';
 import jwt_decode from 'jwt-decode';
@@ -12,6 +12,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,) { }
+
+  // TODO: CHECK JWT EXPIRY
 
   get isLoggedIn() {
     return !!localStorage.getItem('jwt')
@@ -66,4 +68,5 @@ export class AuthService {
       window.location.reload()
     })
   }
+
 }

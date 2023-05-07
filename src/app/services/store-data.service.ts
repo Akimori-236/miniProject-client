@@ -36,4 +36,8 @@ export class StoreDataService {
       this.http.get<Store[]>("/api/data/store", { headers })
     )
   }
+
+  getStoreDetails(storeID:number) {
+    console.log(storeID)
+  }
 }
