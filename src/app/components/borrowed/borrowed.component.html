@@ -25,10 +25,10 @@
       <!-- TODO: ngIf no instruments, show something else -->
       <tr *ngFor="let instr of instrumentList; index as i">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ instr.type | titlecase }}</td>
-        <td>{{ instr.model | titlecase }}</td>
-        <td>{{ instr.serial_number | lowercase }}</td>
-        <td>{{ instr.store_name | titlecase }}</td>
+        <td class="text-wrap">{{ instr.type | titlecase }}</td>
+        <td class="text-wrap">{{ instr.model | titlecase }}</td>
+        <td class="text-wrap">{{ instr.serial_number | lowercase }}</td>
+        <td class="text-wrap">{{ instr.store_name | titlecase }}</td>
         <td>
           <button
             type="button"
