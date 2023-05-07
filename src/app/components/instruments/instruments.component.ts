@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Instrument } from 'src/app/models/instrument';
 import { StoreDataService } from 'src/app/services/store-data.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { StoreDataService } from 'src/app/services/store-data.service';
 })
 export class InstrumentsComponent implements OnChanges {
   @Input()
-  currentStoreID!: number
+  currentStoreID!: string
+  instrumentList!: Instrument[]
 
   constructor(private storeSvc: StoreDataService) { }
 

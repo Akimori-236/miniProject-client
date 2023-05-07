@@ -46,6 +46,13 @@
   </div>
 </ng-template>
 
+<ng-template #Loading>
+  <div class="spinner-border text-danger d-flex justify-content-center" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+
+</ng-template>
+
 <div class="container">
   <div class="row">
     <h1 class="col-auto">Managed Stores</h1>
@@ -57,18 +64,19 @@
       Create Store
     </button>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="storeList; else Loading">
     <button
       type="button"
-      class="btn btn-dark col-auto m-1"
+      class="btn btn-danger col-auto m-1"
       *ngFor="let store of storeList"
       (click)="getStoreDetails(store.store_id)"
     >
       {{ store.store_name }}
     </button>
   </div>
-
-  <app-instruments [currentStoreID]="currentStoreID">
-    <!-- use input to pass in storeid -->
-  </app-instruments>
+  <div *ngIf="currentStoreID">
+    <app-instruments [currentStoreID]="currentStoreID">
+      <!-- use input to pass in storeid -->
+    </app-instruments>
+  </div>
 </div>

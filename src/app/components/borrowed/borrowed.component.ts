@@ -11,7 +11,7 @@ import { StoreDataService } from 'src/app/services/store-data.service';
 })
 export class BorrowedComponent implements OnInit {
   isLoggedIn!: boolean
-  instrumentList: Instrument[] = []
+  instrumentList!: Instrument[]
 
   constructor(
     private storeSvc: StoreDataService,

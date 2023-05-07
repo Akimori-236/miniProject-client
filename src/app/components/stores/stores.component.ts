@@ -15,7 +15,7 @@ export class StoresComponent implements OnInit {
   isLoggedIn!: boolean
   storeList!: Store[]
   createStoreForm!: FormGroup
-  currentStoreID!: number
+  currentStoreID!: string
 
   constructor(
     private authSvc: AuthService,
@@ -79,7 +79,7 @@ export class StoresComponent implements OnInit {
     }
   }
 
-  getStoreDetails(storeid: number) {
+  getStoreDetails(storeid: string) {
     // console.debug("Loading Store: " + storeid)
     this.currentStoreID = storeid
   }

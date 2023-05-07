@@ -37,7 +37,7 @@ export class StoreDataService {
     )
   }
 
-  getStoreDetails(storeID:number) {
+  getStoreDetails(storeID: string) {
     console.log(storeID)
   }
 }
