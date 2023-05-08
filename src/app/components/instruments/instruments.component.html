@@ -4,25 +4,9 @@
   </div>
 </ng-template>
 
-<ng-template #addInstrument let-modal>
-  <!-- add instrument popup -->
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-create-store">Create New Store</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <!-- Close the popup -->
-    </button>
-  </div>
-
-</ng-template>
-
 <div *ngIf="instrumentList; else Loading">
   <div class="row">
-    <button type="button" class="btn btn-primary col-auto m-1" (click)="openPopup(addInstrument)">
+    <button type="button" class="btn btn-primary col-auto m-1" (click)="openPopup()">
       Add Instrument
     </button>
     <button type="button" class="btn btn-primary col-auto m-1">

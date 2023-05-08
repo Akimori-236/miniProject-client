@@ -41,8 +41,29 @@ export class InstrumentsComponent implements OnChanges {
     )
   }
 
-  openPopup(content: any) {
+  openPopup() {
     const modalRef = this.modalService.open(FormAddinstrumentComponent);
-    // modalRef.componentInstance.name = 'World';
+    modalRef.result
+      .then((result) => {
+        // access formgroup in FormAddinstrumentComponent
+        const addInstrumentForm = modalRef.componentInstance.addInstrumentForm
+        console.log(addInstrumentForm.value as Instrument)
+        // call SB
+        
+      },
+      (reason) => {
+        console.log(`Dismissed ${this.getDismissReason(reason)}`)
+      })
+      .catch(error => console.error(error))
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }
