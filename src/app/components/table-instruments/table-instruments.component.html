@@ -1,5 +1,5 @@
 <form>
-  <div class="mb-3 row">
+  <div class="mb-1 row">
     <label
       for="table-filtering-search"
       class="col-xs-3 col-sm-auto col-form-label"
@@ -16,18 +16,25 @@
   </div>
 </form>
 
-<table class="table table-striped">
+<div class="component-container" style="overflow-x: auto;">
+  <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Type</th>
       <th scope="col">Brand</th>
       <th scope="col">Model</th>
+      <th scope="col">Serial Number</th>
+      <th scope="col">Repairing</th>
+      <th scope="col">Loaned To</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let instru of instruments$ | async; index as i">
-      <th scope="row">{{ i + 1 }}</th>
+      <th scope="row">
+        <!-- {{ i + 1 }} -->
+        <button type="button"><h6>Loan Out</h6></button>
+      </th>
       <td>
         <ngb-highlight
           [result]="instru.instrument_type"
@@ -52,6 +59,20 @@
           [term]="filter.value"
         ></ngb-highlight>
       </td>
+      <td>
+        <ngb-highlight
+          [result]="instru.isRepairing ? 'Yes' : 'No' "
+          [term]="filter.value"
+        ></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight
+          [result]="instru.givenname | titlecase"
+          [term]="filter.value"
+        ></ngb-highlight>
+      </td>
     </tr>
   </tbody>
 </table>
+</div>
+

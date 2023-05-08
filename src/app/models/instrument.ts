@@ -10,7 +10,7 @@ export interface Instrument {
     store_name: string
     isRepairing: boolean
     // loaned out to
-    email: string
-    givenname: string
-    familyname: string
+    email?: string
+    givenname?: string
+    familyname?: string
 }

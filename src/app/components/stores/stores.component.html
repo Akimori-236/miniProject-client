@@ -47,10 +47,12 @@
 </ng-template>
 
 <ng-template #Loading>
-  <div class="spinner-border text-danger d-flex justify-content-center" role="status">
+  <div
+    class="spinner-border text-primary d-flex justify-content-center"
+    role="status"
+  >
     <span class="visually-hidden">Loading...</span>
   </div>
-
 </ng-template>
 
 <div class="container">
@@ -65,17 +67,23 @@
     </button>
   </div>
   <div class="row" *ngIf="storeList; else Loading">
-    <button
-      type="button"
-      class="btn btn-danger col-auto m-1"
-      *ngFor="let store of storeList"
-      (click)="getStoreDetails(store.store_id, store.store_name)"
-    >
-      {{ store.store_name }}
-    </button>
+    <ul class="nav nav-tabs">
+      <li *ngFor="let store of storeList">
+        <button
+          class="nav-link"
+          href="#"
+          (click)="getStoreDetails(store.store_id, store.store_name)"
+        >
+          {{ store.store_name }}
+        </button>
+      </li>
+    </ul>
   </div>
   <div *ngIf="currentStoreID">
-    <app-instruments [currentStoreID]="currentStoreID" [currentStoreName]="currentStoreName">
+    <app-instruments
+      [currentStoreID]="currentStoreID"
+      [currentStoreName]="currentStoreName"
+    >
       <!-- use input to pass in storeid -->
     </app-instruments>
   </div>

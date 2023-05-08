@@ -1,14 +1,36 @@
 <ng-template #Loading>
-  <div class="spinner-border text-danger" role="status">
+  <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
 </ng-template>
 
-<hr />
+<ng-template #addInstrument let-modal>
+  <!-- add instrument popup -->
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-create-store">Create New Store</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <!-- Close the popup -->
+    </button>
+  </div>
+
+</ng-template>
 
 <div *ngIf="instrumentList; else Loading">
-  <h1>{{ currentStoreName }}</h1>
-  <app-table-instruments
-    [instrumentList]="instrumentList"
-  ></app-table-instruments>
+  <div class="row">
+    <button type="button" class="btn btn-primary col-auto m-1" (click)="openPopup(addInstrument)">
+      Add Instrument
+    </button>
+    <button type="button" class="btn btn-primary col-auto m-1">
+      Add Manager
+    </button>
+  </div>
+
+  <app-table-instruments>
+    [instrumentList]="instrumentList" ></app-table-instruments
+  >
 </div>

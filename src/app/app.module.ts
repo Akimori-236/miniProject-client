@@ -17,6 +17,7 @@ import { StoresComponent } from './components/stores/stores.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { InstrumentsComponent } from './components/instruments/instruments.component';
 import { TableInstrumentsComponent } from './components/table-instruments/table-instruments.component';
+import { FormAddinstrumentComponent } from './components/form-addinstrument/form-addinstrument.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TableInstrumentsComponent } from './components/table-instruments/table-
     StoresComponent,
     ProfileComponent,
     InstrumentsComponent,
-    TableInstrumentsComponent
+    TableInstrumentsComponent,
+    FormAddinstrumentComponent
   ],
   imports: [
     BrowserModule,
