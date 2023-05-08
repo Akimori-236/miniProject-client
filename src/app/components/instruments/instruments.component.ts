@@ -48,7 +48,7 @@ export class InstrumentsComponent implements OnChanges {
         // access formgroup in FormAddinstrumentComponent
         const addInstrumentForm = modalRef.componentInstance.addInstrumentForm
         console.log(addInstrumentForm.value as Instrument)
-        // call SB
+        // TODO: call SB
         
       },
       (reason) => {
