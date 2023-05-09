@@ -46,14 +46,13 @@ export class InstrumentsComponent implements OnChanges {
     modalRef.result
       .then((result) => {
         // access formgroup in FormAddinstrumentComponent
-        const addInstrumentForm = modalRef.componentInstance.addInstrumentForm
-        console.log(addInstrumentForm.value as Instrument)
-        // TODO: call SB
-        
+        const newInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
+        // call SB
+        this.storeSvc.addNewInstrument(this.currentStoreID, newInstrument)
       },
-      (reason) => {
-        console.log(`Dismissed ${this.getDismissReason(reason)}`)
-      })
+        (reason) => {
+          console.log(`Dismissed ${this.getDismissReason(reason)}`)
+        })
       .catch(error => console.error(error))
   }
 
