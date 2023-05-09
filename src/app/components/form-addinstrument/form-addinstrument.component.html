@@ -7,8 +7,12 @@
     (click)="activeModal.dismiss('Cross click')"
   ></button>
 </div>
-<div class="modal-body">
-  <form [formGroup]="addInstrumentForm">
+<form
+  [formGroup]="addInstrumentForm"
+  (ngSubmit)="activeModal.close('Save click')"
+  novalidate
+>
+  <div class="modal-body">
     <div class="mb-2">
       <label for="instrument_typeID">Type</label>
       <div class="input-group">
@@ -62,14 +66,8 @@
         />
       </div>
     </div>
-  </form>
-</div>
-<div class="modal-footer">
-  <button
-    type="button"
-    class="btn btn-primary"
-    (click)="activeModal.close('Save click')"
-  >
-    Save
-  </button>
-</div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</form>
