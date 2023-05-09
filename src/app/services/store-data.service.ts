@@ -3,17 +3,21 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Instrument } from '../models/instrument';
 import { Store } from '../models/store';
+import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StoreDataService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private authSvc: AuthService) { }
+
+    get JWTHeaders() {
+        return new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`)
+    }
 
     getBorrowed(): Promise<Instrument[]> {
-        const token = localStorage.getItem("jwt")
-        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        const headers = this.JWTHeaders
         // const params = new HttpParams().set("email", email)
         return firstValueFrom(
             this.http.get<Instrument[]>("/api/data/borrowed", { headers })
@@ -21,8 +25,7 @@ export class StoreDataService {
     }
 
     createStore(storeName: string): Promise<any> {
-        const token = localStorage.getItem("jwt")
-        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        const headers = this.JWTHeaders
         let params = new HttpParams().set("storename", storeName)
         return firstValueFrom(
             this.http.post<any>("/api/data/store/create", {}, { headers, params })
@@ -30,8 +33,7 @@ export class StoreDataService {
     }
 
     getManagedStores(): Promise<Store[]> {
-        const token = localStorage.getItem("jwt")
-        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        const headers = this.JWTHeaders
         return firstValueFrom(
             this.http.get<Store[]>("/api/data/store", { headers })
         )
@@ -39,10 +41,17 @@ export class StoreDataService {
 
     getStoreDetails(storeID: string): Promise<any> {
         // console.log(storeID)
-        const token = localStorage.getItem("jwt")
-        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`)
+        const headers = this.JWTHeaders
         return firstValueFrom(
-            this.http.get<Store[]>("/api/data/store/" + storeID, { headers })
+            this.http.get<Store[]>(`/api/data/store/${storeID}`, { headers })
+        )
+    }
+
+    addNewInstrument(storeID: string, instrument: Instrument): Promise<any> {
+        console.info(instrument)
+        const headers = this.JWTHeaders
+        return firstValueFrom(
+            this.http.post<any>(`/api/data/store/${storeID}/addinstrument`, { instrument }, { headers })
         )
     }
 }

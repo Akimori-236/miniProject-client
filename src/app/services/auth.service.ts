@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnChanges, SimpleChanges } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 @Injectable({
@@ -9,20 +9,26 @@ import jwt_decode from 'jwt-decode';
 })
 export class AuthService {
 
+  private readonly JWT_TOKEN_NAME = "jwt"
+
   constructor(
     private http: HttpClient,
     private router: Router,) { }
 
   // TODO: CHECK JWT EXPIRY
 
-  get isLoggedIn() {
-    return !!localStorage.getItem('jwt')
+  get JWT() { return localStorage.getItem(this.JWT_TOKEN_NAME) }
+
+  get isLoggedIn(): boolean { return !!this.JWT }
+
+  get isLoggedIn$(): Observable<boolean> {
+    return (new BehaviorSubject<boolean>(this.isLoggedIn))
+      .asObservable()
   }
 
   get givenname() {
-    const token = localStorage.getItem('jwt')
-    if (null != token) {
-      const decodedJWT: any = jwt_decode(token)
+    if (null != this.JWT) {
+      const decodedJWT: any = jwt_decode(this.JWT)
       return decodedJWT['givenname']
     } else {
       return ""
@@ -62,7 +68,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('jwt')
+    localStorage.removeItem(this.JWT_TOKEN_NAME)
     console.log("JWT Deleted")
     this.router.navigate(['/'])
     // .then(() => {
