@@ -18,6 +18,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { InstrumentsComponent } from './components/instruments/instruments.component';
 import { TableInstrumentsComponent } from './components/table-instruments/table-instruments.component';
 import { FormAddinstrumentComponent } from './components/form-addinstrument/form-addinstrument.component';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -46,8 +47,17 @@ import { FormAddinstrumentComponent } from './components/form-addinstrument/form
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("jwt")
+        }
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
