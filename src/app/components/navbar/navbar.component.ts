@@ -24,7 +24,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
-      // console.log(event instanceof NavigationEnd)
+      // console.log(event)
+      // close the nav on url change
+      this.isCollapsed = true
       this.isLoggedIn = this.authSvc.isLoggedIn
       this.givenname = this.authSvc.givenname
     })
