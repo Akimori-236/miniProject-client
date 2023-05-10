@@ -21,7 +21,7 @@ export class AuthService {
 
   get JWT() {
     const token = localStorage.getItem(this.JWT_TOKEN_NAME)
-    if (this.jwtHelper.isTokenExpired(token)) {
+    if (token != null && this.jwtHelper.isTokenExpired(token)) {
       console.warn("JWT expired")
       this.logout()
       return null
