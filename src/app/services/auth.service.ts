@@ -46,6 +46,10 @@ export class AuthService {
     }
   }
 
+  get JWTHeaders() {
+    return new HttpHeaders().set("Authorization", `Bearer ${this.JWT}`)
+  }
+
   register(givenname: string, familyname: string, email: string, password: string): Promise<any> {
     const body = { givenname, familyname, email, password }
     return firstValueFrom(

@@ -1,10 +1,11 @@
-import { Component, Input, PipeTransform } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Instrument } from 'src/app/models/instrument';
+import { QrService } from 'src/app/services/qr.service';
+import { StoreDataService } from 'src/app/services/store-data.service';
 
 
 
@@ -16,11 +17,14 @@ import { Instrument } from 'src/app/models/instrument';
 export class TableInstrumentsComponent {
   @Input()
   instrumentList!: Instrument[]
-  instruments$: Observable<Instrument[]>;
+  instruments$: Observable<Instrument[]>
+  @Input()
+  storeID!: string
 
   filter = new FormControl('', { nonNullable: true });
 
-  constructor() {
+  constructor(private storeSvc: StoreDataService,
+    private qrSvc: QrService) {
     this.instruments$ = this.filter.valueChanges.pipe(
       startWith(''),
       map((text) => this.search(text)),
@@ -41,7 +45,15 @@ export class TableInstrumentsComponent {
     });
   }
 
-  getQR() {
+  onNewList(event: Instrument[]) {
+    this.instrumentList = event
+  }
 
+  getQR(instrument_id: string) {
+    this.qrSvc.getLoanQR(instrument_id, this.storeID)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => console.error(error))
   }
 }

@@ -9,49 +9,50 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class StoreDataService {
+    DATA_URL: string = "/api/data/";
 
     constructor(private http: HttpClient, private authSvc: AuthService) { }
 
-    get JWTHeaders() {
-        return new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`)
-    }
+
 
     getBorrowed(): Promise<Instrument[]> {
-        const headers = this.JWTHeaders
+        const headers = this.authSvc.JWTHeaders
         // const params = new HttpParams().set("email", email)
         return firstValueFrom(
-            this.http.get<Instrument[]>("/api/data/borrowed", { headers })
+            this.http.get<Instrument[]>(this.DATA_URL + "borrowed", { headers })
         )
     }
 
     createStore(storeName: string): Promise<any> {
-        const headers = this.JWTHeaders
+        const headers = this.authSvc.JWTHeaders
         let params = new HttpParams().set("storename", storeName)
         return firstValueFrom(
-            this.http.post<any>("/api/data/store/create", {}, { headers, params })
+            this.http.post<any>(this.DATA_URL + "store/create", {}, { headers, params })
         )
     }
 
     getManagedStores(): Promise<Store[]> {
-        const headers = this.JWTHeaders
+        const headers = this.authSvc.JWTHeaders
         return firstValueFrom(
-            this.http.get<Store[]>("/api/data/store", { headers })
+            this.http.get<Store[]>(this.DATA_URL + "store", { headers })
         )
     }
 
     getStoreDetails(storeID: string): Promise<any> {
         // console.log(storeID)
-        const headers = this.JWTHeaders
+        const headers = this.authSvc.JWTHeaders
         return firstValueFrom(
-            this.http.get<Store[]>(`/api/data/store/${storeID}`, { headers })
+            this.http.get<any>(this.DATA_URL + `store/${storeID}`, { headers })
         )
     }
 
     addNewInstrument(storeID: string, body: Instrument): Promise<any> {
         console.info(body)
-        const headers = this.JWTHeaders.set('Content-Type', 'application/json')
+        const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
         return firstValueFrom(
-            this.http.post<any>(`/api/data/store/${storeID}/addinstrument`, { body }, { headers })
+            this.http.post<any>(this.DATA_URL + `store/${storeID}/addinstrument`, { body }, { headers })
         )
     }
+
+
 }

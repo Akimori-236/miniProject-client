@@ -4,7 +4,7 @@
   >
     <p class="card-body text-center">
       There are no instruments in this store.
-      <br>
+      <br />
       Add some with the [Add Instrument] button!
     </p>
   </div>
@@ -46,7 +46,15 @@
         <tr *ngFor="let instru of instruments$ | async; index as i">
           <th scope="row">
             <!-- {{ i + 1 }} -->
-            <button type="button" class="btn btn-danger" (click)="getQR()"><h6>Loan Out</h6></button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              style="max-height: fit-content;"
+              (click)="getQR(instru.instrument_id)"
+              [disabled]="instru.isRepairing || !!instru.givenname"
+            >
+              <span class="">Loan Out</span>
+            </button>
           </th>
           <td>
             <ngb-highlight
