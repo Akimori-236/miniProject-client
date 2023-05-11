@@ -42,6 +42,9 @@ export class InstrumentsComponent implements OnChanges {
   }
 
   openPopup() {
+    // TODO: DONT DO POP UP
+    // GO form-addinstrument
+    // DO REDIRECT BACK TO table-instrument ON SUCCESS, STAY ON FORM IF FAIL
     const modalRef = this.modalService.open(FormAddinstrumentComponent);
     modalRef.result
       .then((result) => {

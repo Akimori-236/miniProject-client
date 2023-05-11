@@ -21,7 +21,6 @@ export class FormAddinstrumentComponent implements OnInit {
       brand: this.fb.control<string>('', [Validators.required]),
       model: this.fb.control<string>('', [Validators.required]),
       serial_number: this.fb.control<string>('', [Validators.required]),
-      isRepairing: this.fb.control<boolean>(false, [Validators.required]),
     })
   }
 

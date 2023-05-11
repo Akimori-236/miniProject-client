@@ -47,11 +47,11 @@ export class StoreDataService {
         )
     }
 
-    addNewInstrument(storeID: string, instrument: Instrument): Promise<any> {
-        console.info(instrument)
-        const headers = this.JWTHeaders
+    addNewInstrument(storeID: string, body: Instrument): Promise<any> {
+        console.info(body)
+        const headers = this.JWTHeaders.set('Content-Type', 'application/json')
         return firstValueFrom(
-            this.http.post<any>(`/api/data/store/${storeID}/addinstrument`, { instrument }, { headers })
+            this.http.post<any>(`/api/data/store/${storeID}/addinstrument`, { body }, { headers })
         )
     }
 }
