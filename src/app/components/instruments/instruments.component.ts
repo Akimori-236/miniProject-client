@@ -17,14 +17,12 @@ export class InstrumentsComponent implements OnChanges {
   currentStoreName!: string
   instrumentList!: Instrument[]
   managerList!: User[]
+  isAdding: boolean = false
 
 
   constructor(
     private storeSvc: StoreDataService,
-    private modalService: NgbModal,
-    config: NgbModalConfig) {
-    config.backdrop = 'static';
-  }
+    private modalService: NgbModal) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {

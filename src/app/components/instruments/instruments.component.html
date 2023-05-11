@@ -6,15 +6,26 @@
 
 <div *ngIf="instrumentList; else Loading">
   <div class="row">
-    <button type="button" class="btn btn-primary col-auto m-1" (click)="openPopup()">
+    <button
+      type="button"
+      class="btn btn-primary col-auto m-1"
+      (click)="isAdding = true"
+    >
       Add Instrument
     </button>
     <button type="button" class="btn btn-primary col-auto m-1">
       Add Manager
     </button>
   </div>
-
-  <app-table-instruments>
-    [instrumentList]="instrumentList" ></app-table-instruments
-  >
+  <div *ngIf="!isAdding; else addForm">
+    <app-table-instruments [instrumentList]="instrumentList">
+    </app-table-instruments>
+  </div>
 </div>
+
+<ng-template #addForm>
+  <app-form-addinstrument
+    [currentStoreID]="currentStoreID"
+    [currentStoreName]="currentStoreName"
+  ></app-form-addinstrument>
+</ng-template>
