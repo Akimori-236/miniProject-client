@@ -4,7 +4,7 @@ import { ModalDismissReasons, NgbActiveModal, NgbModal, NgbModalConfig } from '@
 import { Instrument } from 'src/app/models/instrument';
 import { User } from 'src/app/models/user';
 import { StoreDataService } from 'src/app/services/store-data.service';
-import { FormAddinstrumentComponent } from '../form-addinstrument/form-addinstrument.component';
+import { FormAddinstrumentComponent } from './form-addinstrument/form-addinstrument.component';
 
 @Component({
   selector: 'app-instruments',
@@ -18,14 +18,11 @@ export class InstrumentsComponent implements OnChanges {
   currentStoreName!: string
   instrumentList!: Instrument[]
   managerList!: User[]
+  isAdding: boolean = false
 
 
   constructor(
-    private storeSvc: StoreDataService,
-    private modalService: NgbModal,
-    config: NgbModalConfig) {
-    config.backdrop = 'static';
-  }
+    private storeSvc: StoreDataService,) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,31 +38,31 @@ export class InstrumentsComponent implements OnChanges {
     )
   }
 
-  openPopup() {
-    // TODO: DONT DO POP UP
-    // GO form-addinstrument
-    // DO REDIRECT BACK TO table-instrument ON SUCCESS, STAY ON FORM IF FAIL
-    const modalRef = this.modalService.open(FormAddinstrumentComponent);
-    modalRef.result
-      .then((result) => {
-        // access formgroup in FormAddinstrumentComponent
-        const newInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
-        // call SB
-        this.storeSvc.addNewInstrument(this.currentStoreID, newInstrument)
-      },
-        (reason) => {
-          console.log(`Dismissed ${this.getDismissReason(reason)}`)
-        })
-      .catch(error => console.error(error))
-  }
+  // openPopup() {
+  //   // TODO: DONT DO POP UP
+  //   // GO form-addinstrument
+  //   // DO REDIRECT BACK TO table-instrument ON SUCCESS, STAY ON FORM IF FAIL
+  //   const modalRef = this.modalService.open(FormAddinstrumentComponent);
+  //   modalRef.result
+  //     .then((result) => {
+  //       // access formgroup in FormAddinstrumentComponent
+  //       const newInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
+  //       // call SB
+  //       this.storeSvc.addNewInstrument(this.currentStoreID, newInstrument)
+  //     },
+  //       (reason) => {
+  //         console.log(`Dismissed ${this.getDismissReason(reason)}`)
+  //       })
+  //     .catch(error => console.error(error))
+  // }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return `with: ${reason}`;
+  //   }
+  // }
 }

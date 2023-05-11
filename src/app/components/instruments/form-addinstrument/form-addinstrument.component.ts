@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { StoreDataService } from 'src/app/services/store-data.service';
 
 @Component({
   selector: 'app-form-addinstrument',
@@ -10,10 +11,14 @@ import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 export class FormAddinstrumentComponent implements OnInit {
 
   addInstrumentForm!: FormGroup
+  @Input()
+  currentStoreID!: string
+  @Input()
+  currentStoreName!: string
 
   constructor(
     private fb: FormBuilder,
-    public activeModal: NgbActiveModal,) { }
+    private storeSvc: StoreDataService) { }
 
   ngOnInit(): void {
     this.addInstrumentForm = this.fb.group({
@@ -24,4 +29,7 @@ export class FormAddinstrumentComponent implements OnInit {
     })
   }
 
+  submit() {
+
+  }
 }
