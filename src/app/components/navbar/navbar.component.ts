@@ -13,7 +13,6 @@ export class NavbarComponent implements OnInit {
 
   isCollapsed: boolean = true
   isLoggedIn: boolean = false
-  searchForm!: FormGroup
   givenname!: string
   // User: User
 
@@ -30,10 +29,6 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = this.authSvc.isLoggedIn
       this.givenname = this.authSvc.givenname
     })
-    this.searchForm = this.fb.group({
-      search: this.fb.control<string>('', [Validators.required]),
-    })
-
   }
 
   logout() {

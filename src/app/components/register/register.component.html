@@ -63,14 +63,18 @@
               class="form-control my-1"
               id="passwordID"
               name="password"
-              placeholder="Password"
+              ngbTooltip="minimum of 8 characters"
               formControlName="password"
             />
             <label for="passwordID">Password</label>
           </tr>
           <tr>
             <td class="text-center">
-              <button type="submit" class="w-100 btn btn-primary mt-3">
+              <button
+                type="submit"
+                class="w-100 btn btn-primary mt-3"
+                [disabled]="registerForm.invalid"
+              >
                 Register
               </button>
             </td>

@@ -1,6 +1,5 @@
-import { Component, Input, OnChanges, OnInit, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalDismissReasons, NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Instrument } from 'src/app/models/instrument';
 import { User } from 'src/app/models/user';
 import { StoreDataService } from 'src/app/services/store-data.service';
