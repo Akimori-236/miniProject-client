@@ -9,7 +9,7 @@
     <button
       type="button"
       class="btn btn-primary col-auto m-1"
-      (click)="isAdding = true"
+      (click)="openPopup()"
     >
       Add Instrument
     </button>
@@ -17,15 +17,7 @@
       Add Manager
     </button>
   </div>
-  <div *ngIf="!isAdding; else addForm">
-    <app-table-instruments [instrumentList]="instrumentList">
-    </app-table-instruments>
-  </div>
-</div>
 
-<ng-template #addForm>
-  <app-form-addinstrument
-    [currentStoreID]="currentStoreID"
-    [currentStoreName]="currentStoreName"
-  ></app-form-addinstrument>
-</ng-template>
+  <app-table-instruments [instrumentList]="instrumentList">
+  </app-table-instruments>
+</div>

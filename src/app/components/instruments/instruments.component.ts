@@ -24,10 +24,13 @@ export class InstrumentsComponent implements OnChanges {
     private storeSvc: StoreDataService,
     private modalService: NgbModal) { }
 
-
   ngOnChanges(changes: SimpleChanges): void {
     // console.log(changes)
     // call api for data
+    this.getStoreDetails()
+  }
+
+  getStoreDetails() {
     this.storeSvc.getStoreDetails(this.currentStoreID).then(
       response => {
         this.instrumentList = response['instruments']
@@ -44,8 +47,16 @@ export class InstrumentsComponent implements OnChanges {
       .then((result) => {
         // access formgroup in FormAddinstrumentComponent
         const newInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
+        newInstrument.store_id = this.currentStoreID
         // call SB
         this.storeSvc.addNewInstrument(this.currentStoreID, newInstrument)
+          .then(response => {
+            this.getStoreDetails()
+          })
+          .catch(error => {
+            console.error(error)
+            this.getStoreDetails()
+          })
       },
         (reason) => {
           console.log(`Dismissed ${this.getDismissReason(reason)}`)
@@ -62,4 +73,5 @@ export class InstrumentsComponent implements OnChanges {
       return `with: ${reason}`;
     }
   }
+
 }

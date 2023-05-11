@@ -18,7 +18,7 @@ export class FormAddinstrumentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private storeSvc: StoreDataService) { }
+    public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.addInstrumentForm = this.fb.group({
@@ -27,9 +27,5 @@ export class FormAddinstrumentComponent implements OnInit {
       model: this.fb.control<string>('', [Validators.required]),
       serial_number: this.fb.control<string>('', [Validators.required]),
     })
-  }
-
-  submit() {
-
   }
 }
