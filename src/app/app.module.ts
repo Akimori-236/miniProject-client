@@ -16,8 +16,8 @@ import { AboutComponent } from './components/about/about.component';
 import { StoresComponent } from './components/stores/stores.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { InstrumentsComponent } from './components/instruments/instruments.component';
-import { TableInstrumentsComponent } from './components/table-instruments/table-instruments.component';
-import { FormAddinstrumentComponent } from './components/form-addinstrument/form-addinstrument.component';
+import { TableInstrumentsComponent } from './components/instruments/table-instruments/table-instruments.component';
+import { FormAddinstrumentComponent } from './components/instruments/form-addinstrument/form-addinstrument.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({

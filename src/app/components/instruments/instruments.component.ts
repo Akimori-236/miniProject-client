@@ -3,7 +3,7 @@ import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-
 import { Instrument } from 'src/app/models/instrument';
 import { User } from 'src/app/models/user';
 import { StoreDataService } from 'src/app/services/store-data.service';
-import { FormAddinstrumentComponent } from '../form-addinstrument/form-addinstrument.component';
+import { FormAddinstrumentComponent } from './form-addinstrument/form-addinstrument.component';
 
 @Component({
   selector: 'app-instruments',
@@ -41,9 +41,6 @@ export class InstrumentsComponent implements OnChanges {
   }
 
   openPopup() {
-    // TODO: DONT DO POP UP
-    // GO form-addinstrument
-    // DO REDIRECT BACK TO table-instrument ON SUCCESS, STAY ON FORM IF FAIL
     const modalRef = this.modalService.open(FormAddinstrumentComponent);
     modalRef.result
       .then((result) => {
