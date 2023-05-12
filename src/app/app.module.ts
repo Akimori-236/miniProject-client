@@ -19,6 +19,7 @@ import { InstrumentsComponent } from './components/instruments/instruments.compo
 import { TableInstrumentsComponent } from './components/instruments/table-instruments/table-instruments.component';
 import { FormAddinstrumentComponent } from './components/instruments/form-addinstrument/form-addinstrument.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { PopupQrComponent } from './components/popup-qr/popup-qr.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     ProfileComponent,
     InstrumentsComponent,
     TableInstrumentsComponent,
-    FormAddinstrumentComponent
+    FormAddinstrumentComponent,
+    PopupQrComponent
   ],
   imports: [
     BrowserModule,
