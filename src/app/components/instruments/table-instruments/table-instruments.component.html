@@ -48,12 +48,15 @@
             <!-- {{ i + 1 }} -->
             <button
               type="button"
-              class="btn btn-danger"
-              style="max-height: fit-content;"
+              class="btn btn-danger py-0"
               (click)="getQR(instru.instrument_id)"
               [disabled]="instru.isRepairing || !!instru.givenname"
             >
-              <span class="">Loan Out</span>
+              <span
+                class="my-auto"
+                style="font-size: xx-small; white-space: nowrap"
+                >Loan Out</span
+              >
             </button>
           </th>
           <td>

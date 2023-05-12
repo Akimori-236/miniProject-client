@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Instrument } from 'src/app/models/instrument';
 import { QrService } from 'src/app/services/qr.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
+import { PopupQrComponent } from '../popup-qr/popup-qr.component';
 
 
 
@@ -23,8 +25,8 @@ export class TableInstrumentsComponent {
 
   filter = new FormControl('', { nonNullable: true });
 
-  constructor(private storeSvc: StoreDataService,
-    private qrSvc: QrService) {
+  constructor(private modalService: NgbModal) {
+
     this.instruments$ = this.filter.valueChanges.pipe(
       startWith(''),
       map((text) => this.search(text)),
@@ -50,10 +52,8 @@ export class TableInstrumentsComponent {
   }
 
   getQR(instrument_id: string) {
-    this.qrSvc.getLoanQR(instrument_id, this.storeID)
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => console.error(error))
+    const modalRef = this.modalService.open(PopupQrComponent)
+    modalRef.componentInstance.instrument_id = instrument_id
+    modalRef.componentInstance.storeID = this.storeID
   }
 }

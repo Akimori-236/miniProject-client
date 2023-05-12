@@ -67,7 +67,7 @@
     </button>
   </div>
   <div class="row" *ngIf="storeList; else Loading">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" style="overflow-x: auto">
       <li *ngFor="let store of storeList">
         <button
           class="nav-link"

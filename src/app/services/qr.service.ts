@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -14,8 +14,9 @@ export class QrService {
   getLoanQR(instrument_id: string, storeID: string): Promise<any> {
     console.info("Getting QR for loaning out: " + instrument_id)
     const headers = this.authSvc.JWTHeaders
+    // .set('Accept', 'image/png')
     return firstValueFrom(
-        this.http.get<any>(this.QR_URL + `${storeID}/loanout/${instrument_id}`, { headers })
+      this.http.get<any>(`${this.QR_URL}${storeID}/loanout/${instrument_id}`, { headers, responseType: 'blob' as 'json' })
     )
-}
+  }
 }

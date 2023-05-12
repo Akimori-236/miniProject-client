@@ -19,7 +19,7 @@ import { InstrumentsComponent } from './components/instruments/instruments.compo
 import { TableInstrumentsComponent } from './components/instruments/table-instruments/table-instruments.component';
 import { FormAddinstrumentComponent } from './components/instruments/form-addinstrument/form-addinstrument.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { PopupQrComponent } from './components/popup-qr/popup-qr.component';
+import { PopupQrComponent } from './components/instruments/popup-qr/popup-qr.component';
 
 @NgModule({
   declarations: [
