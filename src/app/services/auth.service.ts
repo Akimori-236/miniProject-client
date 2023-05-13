@@ -9,16 +9,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class AuthService {
-  RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
-  AUTH_URL: string = this.RAILWAY_URL + "/api/auth/"
+  // RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
+  AUTH_URL: string = "/api/auth/"
   private readonly JWT_TOKEN_NAME = "jwt"
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private jwtHelper: JwtHelperService) { }
-
-  // TODO: CHECK JWT EXPIRY
 
   get JWT() {
     const token = localStorage.getItem(this.JWT_TOKEN_NAME)
@@ -87,9 +85,6 @@ export class AuthService {
     localStorage.removeItem(this.JWT_TOKEN_NAME)
     console.log("JWT Deleted")
     this.router.navigate(['/'])
-    // .then(() => {
-    //   window.location.reload()
-    // })
   }
 
 }

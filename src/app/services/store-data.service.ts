@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Instrument } from '../models/instrument';
@@ -9,18 +9,16 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class StoreDataService {
-    RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
-    DATA_URL: string = this.RAILWAY_URL + "/api/data/";
+    // RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
+    DATA_URL: string = "/api/data/"
 
     constructor(private http: HttpClient, private authSvc: AuthService) { }
-
-
 
     getBorrowed(): Promise<Instrument[]> {
         const headers = this.authSvc.JWTHeaders
         // const params = new HttpParams().set("email", email)
         return firstValueFrom(
-            this.http.get<Instrument[]>(this.DATA_URL + "borrowed", { headers })
+            this.http.get<Instrument[]>(`${this.DATA_URL}borrowed`, { headers })
         )
     }
 
