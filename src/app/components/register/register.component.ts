@@ -32,9 +32,7 @@ export class RegisterComponent implements OnInit {
     this.isLoggedIn = this.authSvc.isLoggedIn
     if (this.authSvc.isLoggedIn) {
       timeout(3000)
-      this.router.navigate(['/']).then(() => {
-        window.location.reload()
-      })
+      this.router.navigate(['/'])
     }
     // @ts-ignore
     google.accounts.id.initialize({

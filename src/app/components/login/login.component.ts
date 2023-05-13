@@ -29,9 +29,7 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = this.authSvc.isLoggedIn
     if (this.authSvc.isLoggedIn) {
-      this.router.navigate(['/']).then(() => {
-        window.location.reload()
-      })
+      this.router.navigate(['/'])
     }
     // @ts-ignore
     google.accounts.id.initialize({
