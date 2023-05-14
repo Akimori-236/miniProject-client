@@ -9,8 +9,8 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class StoreDataService {
-    // RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
-    DATA_URL: string = "/api/data/"
+    RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
+    DATA_URL: string = this.RAILWAY_URL + "/api/data/"
 
     constructor(private http: HttpClient, private authSvc: AuthService) { }
 
