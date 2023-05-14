@@ -7,8 +7,6 @@ import { MainComponent } from './components/main/main.component';
 import { AboutComponent } from './components/about/about.component';
 import { StoresComponent } from './components/stores/stores.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { InstrumentsComponent } from './components/instruments/instruments.component';
-import { FormAddinstrumentComponent } from './components/instruments/form-addinstrument/form-addinstrument.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },

@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
-import jwt_decode from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -38,7 +37,7 @@ export class AuthService {
 
   get givenname() {
     if (null != this.JWT) {
-      const decodedJWT: any = jwt_decode(this.JWT)
+      const decodedJWT: any = this.jwtHelper.decodeToken(this.JWT)
       return decodedJWT['givenname']
     } else {
       return ""
