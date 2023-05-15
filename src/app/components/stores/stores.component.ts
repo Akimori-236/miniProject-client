@@ -48,27 +48,32 @@ export class StoresComponent implements OnInit {
   }
 
   openPopup(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-create-store' }).result.then(
-      (result) => {
-        console.warn(this.createStoreForm.value['storeName'])
-        // send to API
-        this.storeSvc.createStore(this.createStoreForm.value['storeName'])
+    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-create-store' });
+
+    modalRef.result
+      .then((result) => {
+        // Handle modal close event
+        console.log(`Closed with: ${result}`)
+
+        // Perform API request and handle the response
+        const storeName = this.createStoreForm.value['storeName']
+        this.storeSvc.createStore(storeName)
           .then(response => {
-            console.log("create store: " + response)
-            // reload component data
+            console.log("create store: ", response)
+            // Reload component data
             this.loadStores()
           })
           .catch(err => {
             console.warn(err)
-            // TODO: open popup warning failure
-          })
-        console.log(`Closed with: ${result}`)
-      },
-      (reason) => {
+            // TODO: Open popup warning for failure
+          });
+      })
+      .catch((reason) => {
+        // Handle modal dismiss event
         console.log(`Dismissed ${this.getDismissReason(reason)}`)
-      },
-    );
+      });
   }
+
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
