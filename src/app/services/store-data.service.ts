@@ -16,7 +16,8 @@ export class StoreDataService {
 
     getBorrowed(): Promise<Instrument[]> {
         const headers = this.authSvc.JWTHeaders
-        headers.set("Content-type", "application/json; charset=utf-8")
+        headers.set("Content-type", "application/json")
+        headers.set("Access-Control-Allow-Origin", "no-cors")
         return firstValueFrom(
             this.http.get<Instrument[]>(`${this.DATA_URL}borrowed`, { headers })
         )
