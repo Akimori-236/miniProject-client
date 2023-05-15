@@ -3,7 +3,7 @@
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 
-<form [formGroup]="addInstrumentForm" (ngSubmit)="activeModal.close('Close click')">
+<form [formGroup]="addInstrumentForm">
   <div class="modal-body">
     <div class="mb-2">
       <div class="form-group form-floating">
@@ -64,6 +64,7 @@
       type="submit"
       class="btn btn-primary"
       [disabled]="addInstrumentForm.invalid"
+      (click)="activeModal.close('Close click')"
     >
       Save
     </button>

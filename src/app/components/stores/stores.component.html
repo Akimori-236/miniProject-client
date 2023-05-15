@@ -20,7 +20,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="createStoreForm" (ngSubmit)="modal.close('Save click')">
+    <form [formGroup]="createStoreForm">
       <div class="mb-3">
         <label for="storeNameID">Store Name</label>
         <div class="input-group">
@@ -40,6 +40,7 @@
       type="submit"
       class="btn btn-primary"
       [disabled]="createStoreForm.invalid"
+      (click)="modal.close('Save click')"
     >
       Save
     </button>
