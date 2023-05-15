@@ -16,7 +16,7 @@ export class StoreDataService {
 
     getBorrowed(): Promise<Instrument[]> {
         const headers = this.authSvc.JWTHeaders
-        // const params = new HttpParams().set("email", email)
+        headers.set("Content-type", "application/json")
         return firstValueFrom(
             this.http.get<Instrument[]>(`${this.DATA_URL}borrowed`, { headers })
         )
@@ -24,6 +24,7 @@ export class StoreDataService {
 
     createStore(storeName: string): Promise<any> {
         const headers = this.authSvc.JWTHeaders
+        headers.set("Content-type", "application/json")
         let params = new HttpParams().set("storename", storeName)
         return firstValueFrom(
             this.http.post<any>(this.DATA_URL + "store/create", {}, { headers, params })
@@ -32,6 +33,7 @@ export class StoreDataService {
 
     getManagedStores(): Promise<Store[]> {
         const headers = this.authSvc.JWTHeaders
+        headers.set("Content-type", "application/json")
         return firstValueFrom(
             this.http.get<Store[]>(this.DATA_URL + "store", { headers })
         )
@@ -40,6 +42,7 @@ export class StoreDataService {
     getStoreDetails(storeID: string): Promise<any> {
         // console.log(storeID)
         const headers = this.authSvc.JWTHeaders
+        headers.set("Content-type", "application/json")
         return firstValueFrom(
             this.http.get<any>(this.DATA_URL + `store/${storeID}`, { headers })
         )
