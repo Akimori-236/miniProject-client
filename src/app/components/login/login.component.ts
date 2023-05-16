@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -74,7 +75,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("jwt", response['jwt'])
         this.router.navigate(['/borrowed'])
       })
-      .catch(error => {
+      .catch((error: HttpErrorResponse) => {
+        // TODO: error popup or msg - user not found
         console.error(error)
         window.alert(error)
       })

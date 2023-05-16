@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -85,7 +86,7 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem("jwt", response['jwt'])
         this.router.navigate(['/borrowed'])
       })
-      .catch(error => {
+      .catch((error: HttpErrorResponse) => {
         console.error(error)
         if (error.status === 409) {
           window.alert("This email is already registered. Please log in instead.")
