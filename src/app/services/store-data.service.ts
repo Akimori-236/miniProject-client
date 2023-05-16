@@ -9,15 +9,13 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class StoreDataService {
-    RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
-    DATA_URL: string = this.RAILWAY_URL + "/api/data/"
+    DATA_URL: string = "/api/data/"
 
     constructor(private http: HttpClient, private authSvc: AuthService) { }
 
     getBorrowed(): Promise<Instrument[]> {
         const headers = this.authSvc.JWTHeaders
-        headers.set("Content-type", "application/json")
-        headers.set("Access-Control-Allow-Origin", "no-cors")
+        headers.set("Content-Type", "application/json")
         return firstValueFrom(
             this.http.get<Instrument[]>(`${this.DATA_URL}borrowed`, { headers })
         )

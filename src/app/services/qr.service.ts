@@ -7,8 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class QrService {
-  RAILWAY_URL: string = "https://mp-server-production.up.railway.app"
-  QR_URL: string = this.RAILWAY_URL + "/api/qr/";
+  QR_URL: string = "/api/qr/";
 
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 

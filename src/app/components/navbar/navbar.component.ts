@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
   isCollapsed: boolean = true
   isLoggedIn: boolean = false
   givenname!: string
-  // User: User
 
   constructor(
     private fb: FormBuilder,
