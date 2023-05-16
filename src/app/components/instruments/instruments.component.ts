@@ -51,6 +51,7 @@ export class InstrumentsComponent implements OnChanges {
         // call SB
         this.storeSvc.addNewInstrument(this.currentStoreID, newInstrument)
           .then(response => {
+            console.log(response)
             this.getStoreDetails()
           })
           .catch(error => {
