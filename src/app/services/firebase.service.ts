@@ -1,20 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
+  currentMessage = new Subject()
 
   constructor(
     private afMessaging: AngularFireMessaging,
     private http: HttpClient) {
-    this.afMessaging.tokenChanges.subscribe(
-      (onTokenChange) => {
-        
-      }
-    )
+
   }
 
   requestPermission(): void {
@@ -30,5 +28,14 @@ export class FirebaseService {
         console.error('Error requesting token:', error);
       }
     );
+  }
+
+  receiveMessage() {
+    this.afMessaging.messages.subscribe(
+      (payload) => {
+        console.info("New message received: ", payload)
+        this.currentMessage.next(payload)
+      }
+    )
   }
 }
