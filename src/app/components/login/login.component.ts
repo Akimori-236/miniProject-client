@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { AuthService } from 'src/app/services/auth.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 // Google gives you back CredentialResponses
 
 @Component({
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authSvc: AuthService,
-    private _ngZone: NgZone) { }
+    private _ngZone: NgZone,
+    private firebaseSvc: FirebaseService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -73,14 +75,17 @@ export class LoginComponent implements OnInit {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
+        this.firebaseSvc.requestPermission()
         this.router.navigate(['/borrowed'])
       })
       .catch((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          window.alert("Incorrect login details")
+        }
         // TODO: error popup or msg - user not found
         console.error(error)
-        window.alert(error)
       })
   }
 
-   // TODO: grey out or show loading circle when loading
+  // TODO: grey out or show loading circle when loading
 }

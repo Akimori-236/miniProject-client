@@ -81,7 +81,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(this.JWT_TOKEN_NAME)
-    console.log("JWT Deleted")
+    console.info("Logged out")
     this.router.navigate(['/'])
   }
 
