@@ -20,6 +20,9 @@ import { TableInstrumentsComponent } from './components/instruments/table-instru
 import { FormAddinstrumentComponent } from './components/instruments/form-addinstrument/form-addinstrument.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { PopupQrComponent } from './components/instruments/popup-qr/popup-qr.component';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,9 @@ import { PopupQrComponent } from './components/instruments/popup-qr/popup-qr.com
           return localStorage.getItem("jwt")
         }
       }
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule
   ],
   providers: [
     JwtHelperService
