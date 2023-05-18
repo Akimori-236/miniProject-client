@@ -6,7 +6,7 @@
     <form
       class="form"
       id="registerFormID"
-      [formGroup]="updateProfileform"
+      [formGroup]="updateProfileForm"
       (ngSubmit)="update()"
     >
       <table>
@@ -54,14 +54,14 @@
           <tr>
             <td class="form-group form-floating">
               <input
-                type="password"
+                type="number"
                 class="form-control my-1"
-                id="passwordID"
-                name="password"
-                ngbTooltip="minimum of 8 characters"
-                formControlName="password"
+                id="scheduleID"
+                name="schedule"
+                ngbTooltip="Time of day"
+                formControlName="schedule"
               />
-              <label for="passwordID">Schedule Email </label>
+              <label for="scheduleID">Schedule Email </label>
             </td>
           </tr>
           <tr>
@@ -69,7 +69,7 @@
               <button
                 type="submit"
                 class="w-100 btn btn-primary mt-3"
-                [disabled]="updateProfileform.invalid"
+                [disabled]="updateProfileForm.invalid"
               >
                 Update Profile
               </button>
