@@ -8,7 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class AuthService {
-  AUTH_URL: string = "/api/auth/"
+  private AUTH_URL: string = "/api/auth/"
   private readonly JWT_TOKEN_NAME = "jwt"
 
   constructor(

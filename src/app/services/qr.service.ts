@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class QrService {
-  QR_URL: string = "/api/qr/";
+  private QR_URL: string = "/api/qr/";
 
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
