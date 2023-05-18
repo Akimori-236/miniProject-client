@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authSvc: AuthService,
     private _ngZone: NgZone,
-    private activatedroute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem("jwt", response['jwt'])
 
         this._ngZone.run(() => {
-          const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+          const origPath = this.activatedRoute.snapshot.queryParams['fullPath'];
           if (origPath) {
             const pathArray = origPath.split(',');
             this.router.navigate(pathArray);
@@ -93,7 +93,7 @@ export class RegisterComponent implements OnInit {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
 
-        const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+        const origPath = this.activatedRoute.snapshot.queryParams['fullPath'];
         if (origPath) {
           const pathArray = origPath.split(',');
           this.router.navigate(pathArray);

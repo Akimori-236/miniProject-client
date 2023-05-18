@@ -37,7 +37,7 @@ export class BorrowComponent implements OnInit {
   }
 
   borrow(instrument_id: string) {
-    
+
   }
 
 }

@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -14,7 +16,10 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private profileSvc: ProfileService) { }
+    private authSvc: AuthService,
+    private profileSvc: ProfileService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.updateProfileForm = this.fb.group({
@@ -24,23 +29,30 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       schedule: this.fb.control<number | null>(null, [Validators.required]),
     })
   }
+
   ngAfterViewInit(): void {
     // Get user details
-    this.profileSvc.getProfile()
-      .then((response) => {
-        this.userProfile = response;
-        this.updateProfileForm.patchValue({
-          email: this.userProfile.email
+    if (this.authSvc.isLoggedIn) {
+      this.profileSvc.getProfile()
+        .then((response) => {
+          this.userProfile = response;
+          console.info(this.userProfile)
+          this.updateProfileForm.patchValue({
+            email: this.userProfile.email
+          });
+        })
+        .catch((error) => {
+          console.error('Error retrieving user profile:', error);
         });
-      })
-      .catch((error) => {
-        console.error('Error retrieving user profile:', error);
-      });
+    } else {
+      const fullPath = this.activatedRoute.snapshot.url.toString();
+      let queryParams = { queryParams: { fullPath } }
+      this.router.navigate(['/login'], queryParams)
+    }
   }
-
-
 
   update() {
-
+    // TODO:
   }
+
 }

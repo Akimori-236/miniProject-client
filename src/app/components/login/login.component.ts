@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authSvc: AuthService,
     private _ngZone: NgZone,
-    private activatedroute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = this.authSvc.isLoggedIn
     if (this.authSvc.isLoggedIn) {
-      const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+      const origPath = this.activatedRoute.snapshot.queryParams['fullPath'];
       if (origPath) {
         this.router.navigate([origPath])
       } else {
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       }
     }
 
-    let origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+    let origPath = this.activatedRoute.snapshot.queryParams['fullPath'];
     if (origPath) {
       this.origPath = origPath
     }
@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
         // this.firebaseSvc.requestPermission()
-        const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+        const origPath = this.activatedRoute.snapshot.queryParams['fullPath'];
         if (origPath) {
           const pathArray = origPath.split(',');
           this.router.navigate(pathArray);
@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
   }
 
   register() {
-    const fullPath = this.activatedroute.snapshot.queryParams['fullPath'];
+    const fullPath = this.activatedRoute.snapshot.queryParams['fullPath'];
     let queryParams = { queryParams: { fullPath } }
     this.router.navigate(['/register'], queryParams)
   }
