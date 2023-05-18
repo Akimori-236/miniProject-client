@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Instrument } from 'src/app/models/instrument';
 import { AuthService } from 'src/app/services/auth.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
 
@@ -10,6 +11,7 @@ import { StoreDataService } from 'src/app/services/store-data.service';
 })
 export class BorrowComponent implements OnInit {
   instrumentID!: string
+  instrument!: Instrument
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,13 +24,20 @@ export class BorrowComponent implements OnInit {
     const fullPath = this.activatedRoute.snapshot.url.toString();
     console.log(fullPath)
     if (this.authSvc.isLoggedIn) {
-
+      this.storeSvc.getInstrument(this.instrumentID).then(
+        (response) => {
+          this.instrument = response
+          console.info(this.instrument)
+        }
+      )
     } else {
       let queryParams = { queryParams: { fullPath } }
       this.router.navigate(['/login'], queryParams)
     }
   }
 
-
+  borrow(instrument_id: string) {
+    
+  }
 
 }

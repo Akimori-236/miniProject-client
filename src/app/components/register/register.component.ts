@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialResponse } from 'google-one-tap';
 import { timeout } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,7 +20,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authSvc: AuthService,
-    private _ngZone: NgZone) { }
+    private _ngZone: NgZone,
+    private activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -61,8 +62,15 @@ export class RegisterComponent implements OnInit {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
+
         this._ngZone.run(() => {
-          this.router.navigate(['/borrowed']) // send user to whatever page after logged in
+          const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+          if (origPath) {
+            const pathArray = origPath.split(',');
+            this.router.navigate(pathArray);
+          } else {
+            this.router.navigate(['/']);
+          }
         })
       })
       .catch(error => {
@@ -84,7 +92,14 @@ export class RegisterComponent implements OnInit {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
-        this.router.navigate(['/borrowed'])
+
+        const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+        if (origPath) {
+          const pathArray = origPath.split(',');
+          this.router.navigate(pathArray);
+        } else {
+          this.router.navigate(['/']);
+        }
       })
       .catch((error: HttpErrorResponse) => {
         console.error(error)

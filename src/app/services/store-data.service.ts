@@ -70,4 +70,11 @@ export class StoreDataService {
             this.http.put<null>(this.DATA_URL + `store/updateinstrument`, { body }, { headers })
         )
     }
+
+    getInstrument(id: string): Promise<Instrument> {
+        const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
+        return firstValueFrom(
+            this.http.get<Instrument>(this.DATA_URL + `instrument/${id}`, { headers })
+        )
+    }
 }

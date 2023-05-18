@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup
   isLoggedIn: boolean = false
-  origPath!: string
+  origPath: string = ""
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +39,11 @@ export class LoginComponent implements OnInit {
       } else {
         this.router.navigate(['/'])
       }
+    }
+
+    let origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+    if (origPath) {
+      this.origPath = origPath
     }
 
     // @ts-ignore
@@ -85,9 +90,10 @@ export class LoginComponent implements OnInit {
         // this.firebaseSvc.requestPermission()
         const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
         if (origPath) {
-          this.router.navigate([origPath])
+          const pathArray = origPath.split(',');
+          this.router.navigate(pathArray);
         } else {
-          this.router.navigate(['/'])
+          this.router.navigate(['/']);
         }
       })
       .catch((error: HttpErrorResponse) => {
@@ -97,6 +103,12 @@ export class LoginComponent implements OnInit {
         // TODO: error popup or msg - user not found
         console.error(error)
       })
+  }
+
+  register() {
+    const fullPath = this.activatedroute.snapshot.queryParams['fullPath'];
+    let queryParams = { queryParams: { fullPath } }
+    this.router.navigate(['/register'], queryParams)
   }
 
   // TODO: grey out or show loading circle when loading
