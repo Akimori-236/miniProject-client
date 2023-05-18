@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class StoreDataService {
-    DATA_URL: string = "/api/data/"
+    private DATA_URL: string = "/api/data/"
 
     constructor(private http: HttpClient, private authSvc: AuthService) { }
 
@@ -21,12 +21,12 @@ export class StoreDataService {
         )
     }
 
-    createStore(storeName: string): Promise<any> {
+    createStore(storeName: string): Promise<string> {
         const headers = this.authSvc.JWTHeaders
         headers.set("Content-type", "application/json")
         let params = new HttpParams().set("storename", storeName)
         return firstValueFrom(
-            this.http.post<any>(this.DATA_URL + "store/create", {}, { headers, params })
+            this.http.post<string>(this.DATA_URL + "store/create", {}, { headers, params })
         )
     }
 
@@ -47,13 +47,27 @@ export class StoreDataService {
         )
     }
 
-    addNewInstrument(storeID: string, body: Instrument): Promise<any> {
+    addNewInstrument(storeID: string, body: Instrument): Promise<null> {
         console.info(body)
         const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
         return firstValueFrom(
-            this.http.post<any>(this.DATA_URL + `store/${storeID}/addinstrument`, { body }, { headers })
+            this.http.post<null>(this.DATA_URL + `store/${storeID}/addinstrument`, { body }, { headers })
         )
     }
 
+    sendInviteManager(storeID: string, managerEmail: string): Promise<string> {
+        const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
+        let params = new HttpParams().set("managerEmail", managerEmail)
+        return firstValueFrom(
+            this.http.post<string>(this.DATA_URL + `store/${storeID}/invitemanager`, { headers, params })
+        )
+    }
 
+    updateInstrument(body: Instrument) {
+        console.info(body)
+        const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
+        return firstValueFrom(
+            this.http.put<null>(this.DATA_URL + `store/updateinstrument`, { body }, { headers })
+        )
+    }
 }
