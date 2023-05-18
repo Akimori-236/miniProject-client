@@ -20,6 +20,7 @@ import { TableInstrumentsComponent } from './components/instruments/table-instru
 import { FormAddinstrumentComponent } from './components/instruments/form-addinstrument/form-addinstrument.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { PopupQrComponent } from './components/instruments/popup-qr/popup-qr.component';
+import { BorrowComponent } from './components/borrow/borrow.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PopupQrComponent } from './components/instruments/popup-qr/popup-qr.com
     InstrumentsComponent,
     TableInstrumentsComponent,
     FormAddinstrumentComponent,
-    PopupQrComponent
+    PopupQrComponent,
+    BorrowComponent
   ],
   imports: [
     BrowserModule,

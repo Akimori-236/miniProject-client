@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { AuthService } from 'src/app/services/auth.service';
 // import { FirebaseService } from 'src/app/services/firebase.service';
@@ -16,12 +16,14 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup
   isLoggedIn: boolean = false
+  origPath!: string
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private authSvc: AuthService,
-    private _ngZone: NgZone) { }
+    private _ngZone: NgZone,
+    private activatedroute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -31,8 +33,14 @@ export class LoginComponent implements OnInit {
 
     this.isLoggedIn = this.authSvc.isLoggedIn
     if (this.authSvc.isLoggedIn) {
-      this.router.navigate(['/'])
+      const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+      if (origPath) {
+        this.router.navigate([origPath])
+      } else {
+        this.router.navigate(['/'])
+      }
     }
+
     // @ts-ignore
     google.accounts.id.initialize({
       client_id: '869245493728-jcr4ussoue4u3eu7e020s37gvee8kp05.apps.googleusercontent.com',
@@ -50,8 +58,8 @@ export class LoginComponent implements OnInit {
     )
     // @ts-ignore
     google.accounts.id.prompt((notification: PromptMomentNotification) => { })
-
   }
+  // END OF ONINIT
 
   async handleCredentialResponse(response: CredentialResponse) {
     await this.authSvc.googleLogin(response.credential)
@@ -75,7 +83,12 @@ export class LoginComponent implements OnInit {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
         // this.firebaseSvc.requestPermission()
-        this.router.navigate(['/borrowed'])
+        const origPath = this.activatedroute.snapshot.queryParams['fullPath'];
+        if (origPath) {
+          this.router.navigate([origPath])
+        } else {
+          this.router.navigate(['/'])
+        }
       })
       .catch((error: HttpErrorResponse) => {
         if (error.status === 401) {
