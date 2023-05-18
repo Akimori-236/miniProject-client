@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { StoreDataService } from 'src/app/services/store-data.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Instrument } from 'src/app/models/instrument';
 
 @Component({
   selector: 'app-form-addinstrument',
@@ -15,6 +15,8 @@ export class FormAddinstrumentComponent implements OnInit {
   currentStoreID!: string
   @Input()
   currentStoreName!: string
+  @Input()
+  currentInstrument: Instrument | null = null
 
   constructor(
     private fb: FormBuilder,
@@ -27,5 +29,8 @@ export class FormAddinstrumentComponent implements OnInit {
       model: this.fb.control<string>('', [Validators.required]),
       serial_number: this.fb.control<string>('', [Validators.required]),
     })
+    if (this.currentInstrument) {
+      this.addInstrumentForm.patchValue(this.currentInstrument);
+    }
   }
 }

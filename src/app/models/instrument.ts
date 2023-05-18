@@ -9,6 +9,7 @@ export interface Instrument {
     store_id: string
     store_name: string
     isRepairing: boolean
+    remarks: string
     // loaned out to
     email?: string
     givenname?: string

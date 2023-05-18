@@ -39,7 +39,9 @@
           <th scope="col">Model</th>
           <th scope="col">Serial Number</th>
           <th scope="col">Repairing</th>
+          <th scope="col">Remarks</th>
           <th scope="col">Loaned To</th>
+          <th scope="col">Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -91,9 +93,28 @@
           </td>
           <td>
             <ngb-highlight
+              [result]="instru.remarks"
+              [term]="filter.value"
+            ></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight
               [result]="instru.givenname | titlecase"
               [term]="filter.value"
             ></ngb-highlight>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary py-0"
+              (click)="openPopupUpdateInstrument(instru)"
+            >
+              <span
+                class="my-auto"
+                style="font-size: xx-small; white-space: nowrap"
+                >Edit</span
+              >
+            </button>
           </td>
         </tr>
       </tbody>

@@ -1,16 +1,17 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Instrument } from 'src/app/models/instrument';
 import { User } from 'src/app/models/user';
 import { StoreDataService } from 'src/app/services/store-data.service';
 import { FormAddinstrumentComponent } from './form-addinstrument/form-addinstrument.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-instruments',
   templateUrl: './instruments.component.html',
   styleUrls: ['./instruments.component.css']
 })
-export class InstrumentsComponent implements OnChanges {
+export class InstrumentsComponent implements OnChanges, AfterViewInit {
   @Input()
   currentStoreID!: string
   @Input()
@@ -18,16 +19,25 @@ export class InstrumentsComponent implements OnChanges {
   instrumentList!: Instrument[]
   managerList!: User[]
   isAdding: boolean = false
+  addManagerForm!: FormGroup
+  logList = []
 
 
   constructor(
     private storeSvc: StoreDataService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private fb: FormBuilder,) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     // console.log(changes)
     // call api for data
     this.getStoreDetails()
+  }
+
+  ngAfterViewInit(): void {
+    this.addManagerForm = this.fb.group({
+      managerEmail: this.fb.control<string>('', [Validators.required, Validators.email]),
+    })
   }
 
   getStoreDetails() {
@@ -41,7 +51,7 @@ export class InstrumentsComponent implements OnChanges {
     )
   }
 
-  openPopup() {
+  openPopupAddInstrument() {
     const modalRef = this.modalService.open(FormAddinstrumentComponent);
     modalRef.result
       .then((result) => {
@@ -75,4 +85,46 @@ export class InstrumentsComponent implements OnChanges {
     }
   }
 
+  openPopupAddManager(content: any) {
+    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-add-manager' });
+    modalRef.result
+      .then((result) => {
+        // Handle modal close event
+        console.log(`Closed with: ${result}`)
+
+        // Perform API request and handle the response
+        const managerEmail = this.addManagerForm.value['managerEmail']
+        console.info("Sending invite to: " + managerEmail)
+        this.storeSvc.sendInviteManager(this.currentStoreID, managerEmail)
+          .then(response => {
+            console.log("sent invite for manager: ", response)
+            // modal for confirmation
+          })
+          .catch(err => {
+            console.warn(err)
+            // TODO: Open popup warning for failure
+          });
+      })
+      .catch((reason) => {
+        // Handle modal dismiss event
+        console.log(`Dismissed ${this.getDismissReason(reason)}`)
+      });
+  }
+
+  openPopupStoreLogs(content: any) {
+    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-store-logs' });
+    modalRef.result
+      .then((result) => {
+        // Handle modal close event
+        console.log(`Closed with: ${result}`)
+      })
+      .catch((reason) => {
+        // Handle modal dismiss event
+        console.log(`Dismissed ${this.getDismissReason(reason)}`)
+      });
+  }
+
+  getStoreLogs() {
+
+  }
 }
