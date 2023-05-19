@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Instrument } from 'src/app/models/instrument';
 import { AuthService } from 'src/app/services/auth.service';
+import { InstrumentService } from 'src/app/services/instrument.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class BorrowComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private storeSvc: StoreDataService,
+    private instruSvc: InstrumentService,
     private authSvc: AuthService,
     private router: Router) { }
 
@@ -24,7 +25,7 @@ export class BorrowComponent implements OnInit {
     const fullPath = this.activatedRoute.snapshot.url.toString();
     console.log(fullPath)
     if (this.authSvc.isLoggedIn) {
-      this.storeSvc.getInstrument(this.instrumentID).then(
+      this.instruSvc.getInstrument(this.instrumentID).then(
         (response) => {
           this.instrument = response
           console.info(this.instrument)

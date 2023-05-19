@@ -9,24 +9,16 @@ import { AuthService } from './auth.service';
     providedIn: 'root'
 })
 export class StoreDataService {
-    private DATA_URL: string = "/api/data/"
+    private STORE_URL: string = "/api/store"
 
     constructor(private http: HttpClient, private authSvc: AuthService) { }
-
-    getBorrowed(): Promise<Instrument[]> {
-        const headers = this.authSvc.JWTHeaders
-        headers.set("Content-Type", "application/json")
-        return firstValueFrom(
-            this.http.get<Instrument[]>(`${this.DATA_URL}borrowed`, { headers })
-        )
-    }
 
     createStore(storeName: string): Promise<string> {
         const headers = this.authSvc.JWTHeaders
         headers.set("Content-type", "application/json")
         let params = new HttpParams().set("storename", storeName)
         return firstValueFrom(
-            this.http.post<string>(this.DATA_URL + "store/create", {}, { headers, params })
+            this.http.post<string>(`${this.STORE_URL}/create`, {}, { headers, params })
         )
     }
 
@@ -34,7 +26,7 @@ export class StoreDataService {
         const headers = this.authSvc.JWTHeaders
         headers.set("Content-type", "application/json")
         return firstValueFrom(
-            this.http.get<Store[]>(this.DATA_URL + "store", { headers })
+            this.http.get<Store[]>(this.STORE_URL, { headers })
         )
     }
 
@@ -43,15 +35,7 @@ export class StoreDataService {
         const headers = this.authSvc.JWTHeaders
         headers.set("Content-type", "application/json")
         return firstValueFrom(
-            this.http.get<any>(this.DATA_URL + `store/${storeID}`, { headers })
-        )
-    }
-
-    addNewInstrument(storeID: string, body: Instrument): Promise<null> {
-        console.info(body)
-        const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
-        return firstValueFrom(
-            this.http.post<null>(this.DATA_URL + `store/${storeID}/addinstrument`, { body }, { headers })
+            this.http.get<any>(`${this.STORE_URL}/${storeID}`, { headers })
         )
     }
 
@@ -59,22 +43,8 @@ export class StoreDataService {
         const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
         let params = new HttpParams().set("managerEmail", managerEmail)
         return firstValueFrom(
-            this.http.post<string>(this.DATA_URL + `store/${storeID}/invitemanager`, { headers, params })
+            this.http.post<string>(`${this.STORE_URL}/invite/${storeID}`, { headers, params })
         )
     }
 
-    updateInstrument(body: Instrument) {
-        console.info(body)
-        const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
-        return firstValueFrom(
-            this.http.put<null>(this.DATA_URL + `store/updateinstrument`, { body }, { headers })
-        )
-    }
-
-    getInstrument(id: string): Promise<Instrument> {
-        const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
-        return firstValueFrom(
-            this.http.get<Instrument>(this.DATA_URL + `instrument/${id}`, { headers })
-        )
-    }
 }

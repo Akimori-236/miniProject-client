@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Instrument } from 'src/app/models/instrument';
 import { AuthService } from 'src/app/services/auth.service';
+import { InstrumentService } from 'src/app/services/instrument.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class BorrowedComponent implements OnInit {
   instrumentList!: Instrument[]
 
   constructor(
-    private storeSvc: StoreDataService,
+    private instruSvc: InstrumentService,
     private authSvc: AuthService,
     private router: Router) { }
 
@@ -25,7 +26,7 @@ export class BorrowedComponent implements OnInit {
     }
     const token = localStorage.getItem('jwt')
     // load borrowed items
-    this.storeSvc.getBorrowed()
+    this.instruSvc.getBorrowed()
       .then(response => {
         console.log(response)
         this.instrumentList = response

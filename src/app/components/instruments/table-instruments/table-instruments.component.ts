@@ -9,6 +9,7 @@ import { QrService } from 'src/app/services/qr.service';
 import { StoreDataService } from 'src/app/services/store-data.service';
 import { PopupQrComponent } from '../popup-qr/popup-qr.component';
 import { FormAddinstrumentComponent } from '../form-addinstrument/form-addinstrument.component';
+import { InstrumentService } from 'src/app/services/instrument.service';
 
 
 
@@ -26,7 +27,7 @@ export class TableInstrumentsComponent {
 
   filter = new FormControl('', { nonNullable: true });
 
-  constructor(private modalService: NgbModal, private storeSvc: StoreDataService) {
+  constructor(private modalService: NgbModal, private instruSvc: InstrumentService) {
 
     this.instruments$ = this.filter.valueChanges.pipe(
       startWith(''),
@@ -68,7 +69,7 @@ export class TableInstrumentsComponent {
         // access formgroup in FormAddinstrumentComponent
         const updatedInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
         // call SB
-        this.storeSvc.updateInstrument(updatedInstrument)
+        this.instruSvc.updateInstrument(updatedInstrument)
           .then(response => {
             console.log(response)
             // this.getStoreDetails()

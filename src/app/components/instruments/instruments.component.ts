@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { StoreDataService } from 'src/app/services/store-data.service';
 import { FormAddinstrumentComponent } from './form-addinstrument/form-addinstrument.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { InstrumentService } from 'src/app/services/instrument.service';
 
 @Component({
   selector: 'app-instruments',
@@ -25,6 +26,7 @@ export class InstrumentsComponent implements OnChanges, AfterViewInit {
 
   constructor(
     private storeSvc: StoreDataService,
+    private instruSvc: InstrumentService,
     private modalService: NgbModal,
     private fb: FormBuilder,) { }
 
@@ -60,7 +62,7 @@ export class InstrumentsComponent implements OnChanges, AfterViewInit {
         const newInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
         newInstrument.store_id = this.currentStoreID
         // call SB
-        this.storeSvc.addNewInstrument(this.currentStoreID, newInstrument)
+        this.instruSvc.addNewInstrument(this.currentStoreID, newInstrument)
           .then(response => {
             console.log(response)
             this.getStoreDetails()
