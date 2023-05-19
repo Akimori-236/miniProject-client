@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Add Instrument</h4>
+  <h4 class="modal-title">{{ modalTitle }}</h4>
   <button
     type="button"
     class="btn-close"
@@ -79,7 +79,7 @@
   <div class="modal-footer">
     <button
       type="submit"
-      class="btn btn-primary"
+      class="btn btn-warning"
       [disabled]="addInstrumentForm.invalid"
       (click)="activeModal.close('Close click')"
     >

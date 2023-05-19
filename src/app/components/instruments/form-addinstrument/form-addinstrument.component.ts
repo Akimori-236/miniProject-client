@@ -17,6 +17,8 @@ export class FormAddinstrumentComponent implements OnInit {
   currentStoreName!: string
   @Input()
   currentInstrument: Instrument | null = null
+  @Input()
+  modalTitle: string = ""
 
   constructor(
     private fb: FormBuilder,

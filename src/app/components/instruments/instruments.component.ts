@@ -53,6 +53,7 @@ export class InstrumentsComponent implements OnChanges, AfterViewInit {
 
   openPopupAddInstrument() {
     const modalRef = this.modalService.open(FormAddinstrumentComponent);
+    modalRef.componentInstance.modalTitle = "Add Instrument"
     modalRef.result
       .then((result) => {
         // access formgroup in FormAddinstrumentComponent
@@ -113,6 +114,8 @@ export class InstrumentsComponent implements OnChanges, AfterViewInit {
 
   openPopupStoreLogs(content: any) {
     const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-store-logs' });
+    // TODO: get logs
+
     modalRef.result
       .then((result) => {
         // Handle modal close event

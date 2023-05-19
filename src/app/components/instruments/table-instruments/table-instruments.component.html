@@ -10,7 +10,7 @@
   </div>
 </ng-template>
 
-<div *ngIf="instrumentList && instrumentList.length > 0; else noInstruments">
+<div class="bg-fog p-3" *ngIf="instrumentList && instrumentList.length > 0; else noInstruments">
   <form>
     <div class="mb-1 row">
       <label
@@ -106,7 +106,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-primary py-0"
+              class="btn btn-warning py-0"
               (click)="openPopupUpdateInstrument(instru)"
             >
               <span

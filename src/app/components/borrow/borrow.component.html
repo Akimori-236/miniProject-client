@@ -1,13 +1,13 @@
 <ng-template #Loading>
   <div class="d-flex justify-content-center mt-5">
-    <div class="spinner-border text-primary" role="status">
+    <div class="spinner-border text-warning" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </ng-template>
 
 <div
-  class="card position-absolute top-50 start-50 translate-middle border border-primary rounded-3"
+  class="card position-absolute top-50 start-50 translate-middle border border-warning rounded-3"
 >
   <div class="card-body">
     <h2>Confirm Loaning of This {{ instrument.instrument_type }}</h2>
@@ -73,7 +73,7 @@
       <div class="row">
         <button
           type="button"
-          class="btn btn-primary col-auto me-auto ms-5"
+          class="btn btn-warning col-auto me-auto ms-5"
           (click)="borrow(instrument.instrument_id)"
         >
           Loan

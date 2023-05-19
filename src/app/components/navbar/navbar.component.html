@@ -1,10 +1,10 @@
-<div class="container-fluid mb-1 border-bottom border-dark">
-  <nav class="navbar navbar-expand-md w-100">
+<div class="container-fluid mb-1 w-100">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <tr>
       <td>
-        <a class="navbar-brand" href="#" [routerLink]="['/']"
-          ><img class="w-25 h-25" src="assets/51.png" alt="Logo"
-        /></a>
+        <a class="navbar-brand" href="#" [routerLink]="['/']">
+          <img class="w-25 h-25" src="assets/logo.png" alt="Logo" />
+        </a>
       </td>
       <td>
         <button
@@ -21,29 +21,31 @@
 
     <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav col-auto ms-auto text-end">
-        <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="['/about']"> About </a>
+        <li class="nav-item mx-3">
+          <a class="nav-link" href="#" [routerLink]="['/about']">
+            <h4 class="my-auto text-light">About</h4>
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="['/borrowed']"
-            >Borrowed Instruments</a
-          >
+        <li class="nav-item mx-3">
+          <a class="nav-link" href="#" [routerLink]="['/borrowed']">
+            <h4 class="my-auto text-light">Borrowed Instruments</h4>
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="['/stores']"
-            >Managed Stores</a
-          >
+        <li class="nav-item mx-3">
+          <a class="nav-link" href="#" [routerLink]="['/stores']">
+            <h4 class="my-auto text-light">Managed Stores</h4>
+          </a>
         </li>
 
         <li *ngIf="isLoggedIn; else Login">
           <div ngbDropdown class="ms-auto">
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-warning"
               id="dropdownBasic1"
               ngbDropdownToggle
             >
-              {{ givenname | titlecase }}
+              <h4 class="my-auto">{{ givenname | titlecase }}</h4>
             </button>
             <div
               ngbDropdownMenu
@@ -51,7 +53,7 @@
               class="text-end dropdown-menu-end"
             >
               <button ngbDropdownItem [routerLink]="['/profile']">
-                Profile
+                <h4 class="my-auto">Profile</h4>
               </button>
               <!-- <button ngbDropdownItem [routerLink]="['/borrowed']">Borrowed Instruments</button>
               <button ngbDropdownItem [routerLink]="['/stores']">Managed Stores</button> -->
@@ -60,7 +62,7 @@
                 class="bg-danger text-light me-3"
                 (click)="logout()"
               >
-                Logout
+                <h4 class="my-auto">Logout</h4>
               </button>
             </div>
           </div>
@@ -69,11 +71,11 @@
 
       <ng-template #Login>
         <button
-          class="btn btn-primary col ms-auto text-end me-3"
+          class="btn btn-warning col ms-auto text-end me-3"
           type="button"
           [routerLink]="['/login']"
         >
-          Login
+          <h4 class="my-auto" class="my-auto">Login</h4>
         </button>
       </ng-template>
     </div>

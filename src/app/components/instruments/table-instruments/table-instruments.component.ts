@@ -61,6 +61,7 @@ export class TableInstrumentsComponent {
 
   openPopupUpdateInstrument(instrument: Instrument) {
     const modalRef = this.modalService.open(FormAddinstrumentComponent);
+    modalRef.componentInstance.modalTitle = "Edit Instrument"
     modalRef.componentInstance.currentInstrument = instrument
     modalRef.result
       .then((result) => {
