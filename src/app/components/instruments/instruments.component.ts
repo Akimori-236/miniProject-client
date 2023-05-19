@@ -131,6 +131,6 @@ export class InstrumentsComponent implements OnChanges, AfterViewInit {
   }
 
   getStoreLogs() {
-
+    // TODO:
   }
 }

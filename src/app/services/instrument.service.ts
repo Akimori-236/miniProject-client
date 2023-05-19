@@ -35,12 +35,12 @@ export class InstrumentService {
     )
   }
 
-  updateInstrument(body: Instrument) {
+  updateInstrument(body: Instrument): Promise<boolean> {
     console.info(body)
     const headers = this.authSvc.JWTHeaders.set('Content-Type', 'application/json')
     return firstValueFrom(
-      this.http.put<null>(`${this.INSTRUMENT_URL}/update`, { body }, { headers })
+      this.http.put<boolean>(`${this.INSTRUMENT_URL}/update`, { body }, { headers })
     )
   }
-  
+
 }
