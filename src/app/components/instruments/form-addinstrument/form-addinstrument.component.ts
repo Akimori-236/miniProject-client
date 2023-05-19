@@ -26,10 +26,13 @@ export class FormAddinstrumentComponent implements OnInit {
 
   ngOnInit(): void {
     this.addInstrumentForm = this.fb.group({
+      instrument_id: this.fb.control<string>(''),
       instrument_type: this.fb.control<string>('', [Validators.required]),
       brand: this.fb.control<string>('', [Validators.required]),
       model: this.fb.control<string>('', [Validators.required]),
       serial_number: this.fb.control<string>('', [Validators.required]),
+      isRepairing: this.fb.control<boolean>(false, [Validators.required]),
+      remarks: this.fb.control<string>('')
     })
     if (this.currentInstrument) {
       this.addInstrumentForm.patchValue(this.currentInstrument);

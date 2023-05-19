@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Instrument } from 'src/app/models/instrument';
 import { QrService } from 'src/app/services/qr.service';
@@ -24,11 +24,11 @@ export class TableInstrumentsComponent {
   instruments$: Observable<Instrument[]>
   @Input()
   storeID!: string
-
   filter = new FormControl('', { nonNullable: true });
+  @Output()
+  onUpdate = new Subject()
 
   constructor(private modalService: NgbModal, private instruSvc: InstrumentService) {
-
     this.instruments$ = this.filter.valueChanges.pipe(
       startWith(''),
       map((text) => this.search(text)),
@@ -68,14 +68,17 @@ export class TableInstrumentsComponent {
       .then((result) => {
         // access formgroup in FormAddinstrumentComponent
         const updatedInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
+        console.log(updatedInstrument)
         // call SB
         this.instruSvc.updateInstrument(updatedInstrument)
           .then(response => {
             console.log(response)
+            this.onUpdate.next(true)
             // this.getStoreDetails()
           })
           .catch(error => {
             console.error(error)
+            this.onUpdate.next(true)
             // this.getStoreDetails()
           })
       },

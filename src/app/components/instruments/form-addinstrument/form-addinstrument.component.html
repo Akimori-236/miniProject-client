@@ -64,13 +64,27 @@
       </div>
     </div>
     <div class="mb-2">
+      <div class="form-check form-switch">
+        <input
+          id="isRepairingID"
+          class="form-check-input"
+          name="isRepairing"
+          type="checkbox"
+          role="switch"
+          formControlName="isRepairing"
+        /><label class="form-check-label" for="isRepairingID"
+          >Is this instrument under repair?</label
+        >
+      </div>
+    </div>
+    <div class="mb-2">
       <div class="form-group form-floating">
         <input
           id="remarksID"
           class="form-control"
           name="remarks"
           type="text"
-          placeholder="Serial Number"
+          placeholder="Remarks"
           formControlName="remarks"
         /><label for="remarksID">Remarks</label>
       </div>

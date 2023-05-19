@@ -60,6 +60,7 @@ export class InstrumentsComponent implements OnChanges, AfterViewInit {
       .then((result) => {
         // access formgroup in FormAddinstrumentComponent
         const newInstrument = modalRef.componentInstance.addInstrumentForm.value as Instrument
+        console.log(newInstrument)
         newInstrument.store_id = this.currentStoreID
         // call SB
         this.instruSvc.addNewInstrument(this.currentStoreID, newInstrument)
